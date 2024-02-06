@@ -202,7 +202,6 @@ type (
 		SettlementTypeDescription  string `json:"SettlementTypeDescription"`
 		SpecialCashCheck           int    `json:"SpecialCashCheck"`
 		AreaDescription            string `json:"AreaDescription"`
-		AreaDescriptionRu          string `json:"AreaDescriptionRu"`
 	}
 )
 
