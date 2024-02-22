@@ -47,11 +47,11 @@ client defaulting to JSON and no timeout.
 
 ```go
 c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"),
-	WithXML,
-	WithJSON, // default
+	np.WithXML,
+	np.WithJSON, // default
 	np.WithTimeout(5 * time.Second),
-	WithMarshaler(json.Marshal), // default for JSON
-	WithUnmarshaler(xml.Unmarshal), // default for XML
+	np.WithMarshaler(json.Marshal), // default for JSON
+	np.WithUnmarshaler(xml.Unmarshal), // default for XML
 	np.WithURL("https://api.novaposhta.ua/v2.0/json/"), // set automatically by WithXML, WithJSON
 )
 ```
