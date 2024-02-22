@@ -3,7 +3,6 @@ package novapost
 import (
 	"encoding/json"
 	"encoding/xml"
-	"io"
 	"net/http"
 	"time"
 )
@@ -13,16 +12,12 @@ const (
 	XMLUrl  = "https://api.novaposhta.ua/v2.0/xml/"
 )
 
-type decoder interface {
-	Decode(any) error
-}
-
 type Client struct {
-	apiKey             string
-	http               *http.Client
-	url                string
-	marshaler          func(any) ([]byte, error)
-	decoderConstructor func(at io.Reader) decoder
+	apiKey      string
+	http        *http.Client
+	url         string
+	marshaler   func(any) ([]byte, error)
+	unmarshaler func([]byte, any) error
 }
 
 type Option func(*Client)
@@ -36,18 +31,30 @@ func WithTimeout(t time.Duration) Option {
 func WithJSON(c *Client) {
 	c.url = JSONUrl
 	c.marshaler = json.Marshal
-	c.decoderConstructor = func(r io.Reader) decoder { return json.NewDecoder(r) }
+	c.unmarshaler = json.Unmarshal
 }
 
 func WithXML(c *Client) {
 	c.url = XMLUrl
 	c.marshaler = xml.Marshal
-	c.decoderConstructor = func(r io.Reader) decoder { return xml.NewDecoder(r) }
+	c.unmarshaler = xml.Unmarshal
 }
 
 func WithURL(url string) Option {
 	return func(c *Client) {
 		c.url = url
+	}
+}
+
+func WithMarshaler(marshaler func(any) ([]byte, error)) Option {
+	return func(c *Client) {
+		c.marshaler = marshaler
+	}
+}
+
+func WithUnmarshaler(unmarshaler func([]byte, any) error) Option {
+	return func(c *Client) {
+		c.unmarshaler = unmarshaler
 	}
 }
 

@@ -2,7 +2,7 @@ package novapost
 
 import (
 	"bytes"
-	"net/http"
+	"io"
 )
 
 const (
@@ -23,15 +23,15 @@ func request[Res any](c Client, model, method string, props any) (response Respo
 	if err != nil {
 		return
 	}
-	r, err := http.NewRequest(http.MethodGet, c.url, bytes.NewBuffer(b))
+	res, err := c.http.Post(c.url, "", bytes.NewBuffer(b))
 	if err != nil {
 		return
 	}
-	res, err := c.http.Do(r)
+	b, err = io.ReadAll(res.Body)
 	if err != nil {
 		return
 	}
-	err = c.decoderConstructor(res.Body).Decode(&response)
+	err = c.unmarshaler(b, &response)
 	if err != nil {
 		return
 	}
