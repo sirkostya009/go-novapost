@@ -50,31 +50,30 @@ c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"),
 	WithXML,
 	WithJSON, // default
 	np.WithTimeout(5 * time.Second),
+	WithMarshaler(json.Marshal), // default for JSON
+	WithUnmarshaler(xml.Unmarshal), // default for XML
 	np.WithURL("https://api.novaposhta.ua/v2.0/json/"), // set automatically by WithXML, WithJSON
 )
 ```
 
-There's also an option for rawdogging requests, in case something you wish to do is not supported by the library.
+There's also an option for rawdogging requests, in case you wish to do something that is not supported by the library.
 
 ```go
-res, err := c.RawRequest(np.Request{
-	// we don't need to pass an api key, it will be set inside RawRequest method
-	ModelName: "Model",
-	CalledMethod: "method",
-	MethodProperties: map[string]any{
-		"foo": "bar",
-	},
-})
+type customProps struct {
+	Value string `json:"value"`
+}
+
+res, err := c.RawRequest("Model", "method", customProps{Value: "foo"}))
 
 for _, m := range res.Data {
-    fmt.Println(m["foo"]) // res.Data is a slice of maps
+	fmt.Println(m["foo"]) // res.Data is a slice of maps
 }
 ```
 
 ## TODO:
-- Fix tests
-- Fix XML
-- Add constants for common strings, like "Sender" or "ThirdPerson"
+- [ ] Fix tests
+- [ ] Fix XML
+- [ ] Add constants for common strings, like "Sender" or "ThirdPerson"
 
 ## Contributing
 
