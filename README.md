@@ -7,7 +7,7 @@ A simple library-wrapper for NovaPost API.
 ## Idea
 
 I was rather surprised by how sparse the availability of NovaPost API libraries for Go is, and so decided to make one of
-my own which would be simple to use and try to stick to the original API reference as much as possible.
+my own which would be simple to use and tries to stick to the original API reference as much as possible.
 
 ## Usage
 
@@ -17,7 +17,7 @@ Just go get the libbo.
 go get github.com/sirkostya009/go-novapost
 ```
 
-### Code:
+### Example:
 
 ```go
 package main
@@ -47,35 +47,54 @@ client defaulting to JSON and no timeout.
 
 ```go
 c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"),
-	np.WithXML,
-	np.WithJSON, // default
-	np.WithTimeout(5 * time.Second),
-	np.WithMarshaler(json.Marshal), // default for JSON
-	np.WithUnmarshaler(xml.Unmarshal), // default for XML
-	np.WithURL("https://api.novaposhta.ua/v2.0/json/"), // set automatically by WithXML, WithJSON
+	np.WithHTTPClient(&http.Client{}),
+	np.WithMarshaler(xml.Marshal),
+	np.WithUnmarshaler(xml.Unmarshal),
+	np.WithURL(np.XMLUrl),
 )
 ```
 
-There's also an option for rawdogging requests, in case you wish to do something that is not supported by the library.
+You can also initialize the client after construction:
+
+```go
+c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"))
+c.Url = np.JSONUrl
+c.HTTPClient = http.DefaultClient
+c.Marshaler = fasterXmlMarshaler
+```
+
+As you can see, this library uses XML for request marshalling, due to the nature of data returned by API. You aren't
+stripped of the ability to use JSON, though. Do note that the implementation must be a custom one, as most models have
+ints and floats whereas JSON response from API for those fields is a string.
+
+Alternatively, you are provided with an option for rawdogging requests, in case you wish to do something that is not
+supported by the library.
 
 ```go
 type customProps struct {
-	Value string `json:"value"`
+	Value string
 }
 
-res, err := c.RawRequest("Model", "method", customProps{Value: "foo"}))
+type customResponse struct {
+    Data []struct {
+        Foo string
+    } `xml:"data->item"`
+}
+
+res, err := np.RawRequest[customResponse](c, "Model", "method", customProps{Value: "foo"}))
 
 for _, m := range res.Data {
-	fmt.Println(m["foo"]) // res.Data is a slice of maps
+	fmt.Println(m.Foo)
 }
 ```
 
 ## TODO:
-- [ ] Fix tests
-- [ ] Fix XML
-- [ ] Add constants for common strings, like "Sender" or "ThirdPerson"
+- [x] Fix tests
+- [x] Fix XML
+- [x] Add constants for common strings, like "Sender" or "ThirdPerson"
+- [ ] Add custom marshaler/unmarshaler for JSON
 
 ## Contributing
 
-If you wish to fix a bug or perhaps have a better idea of how to implement x, feel free to fork this repo and open a PR.
-Make sure existing tests are passing and that you've added tests for your changes, too.
+If you wish to fix a bug or perhaps have a better idea of how to implement something, feel free to fork this repo and
+open a PR. Make sure existing tests are passing and that you've added tests for your changes, too.

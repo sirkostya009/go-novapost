@@ -3,14 +3,14 @@ package novapost
 type (
 	Response[T any] struct {
 		Success      bool     `json:"success" xml:"success"`
-		Data         []T      `json:"data" xml:"data"`
-		Errors       []string `json:"errors" xml:"errors"`
-		Warnings     []string `json:"warnings" xml:"warnings"`
+		Data         []T      `json:"data" xml:"data>item"`
+		Errors       []string `json:"errors" xml:"errors>item"`
+		Warnings     []string `json:"warnings" xml:"warnings>item"`
 		Info         any      `json:"info" xml:"info"`
-		MessageCodes []string `json:"messageCodes" xml:"messageCodes"`
-		ErrorCodes   []string `json:"errorCodes" xml:"errorCodes"`
-		WarningCodes []string `json:"warningCodes" xml:"warningCodes"`
-		InfoCodes    []string `json:"infoCodes" xml:"infoCodes"`
+		MessageCodes []string `json:"messageCodes" xml:"messageCodes>item"`
+		ErrorCodes   []string `json:"errorCodes" xml:"errorCodes>item"`
+		WarningCodes []string `json:"warningCodes" xml:"warningCodes>item"`
+		InfoCodes    []string `json:"infoCodes" xml:"infoCodes>item"`
 	}
 
 	Request struct {
@@ -25,12 +25,12 @@ type (
 	}
 
 	RefDescription struct {
-		Ref         string `json:"Ref"`
-		Description string `json:"Description"`
+		Ref         string
+		Description string
 	}
 
 	RefNumber struct {
-		Ref    string `json:"Ref"`
-		Number string `json:"Number"`
+		Ref    string
+		Number string
 	}
 )

@@ -18,27 +18,24 @@ const (
 	TrackingDocumentModel  = "TrackingDocument"
 )
 
-func request[Res any](c Client, model, method string, props any) (response Response[Res], err error) {
-	b, err := c.marshaler(Request{c.apiKey, model, method, props})
+func RawRequest[Res any](c *Client, model, method string, props any) (*Response[Res], error) {
+	b, err := c.Marshaler(Request{c.apiKey, model, method, props})
 	if err != nil {
-		return
+		return nil, err
 	}
-	res, err := c.http.Post(c.url, "", bytes.NewBuffer(b))
+	res, err := c.HTTPClient.Post(c.Url, "", bytes.NewBuffer(b))
 	if err != nil {
-		return
+		return nil, err
 	}
 	b, err = io.ReadAll(res.Body)
 	if err != nil {
-		return
+		return nil, err
 	}
-	err = c.unmarshaler(b, &response)
+	resp := &Response[Res]{}
+	err = c.Unmarshaler(b, resp)
 	if err != nil {
-		return
+		return nil, err
 	}
-	err = res.Body.Close()
-	return
-}
-
-func (c Client) RawRequest(model, method string, props any) (Response[map[string]any], error) {
-	return request[map[string]any](c, model, method, props)
+	_ = res.Body.Close()
+	return resp, nil
 }

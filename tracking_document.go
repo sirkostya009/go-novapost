@@ -2,122 +2,122 @@ package novapost
 
 type (
 	StatusDocumentRequest struct {
-		DocumentNumber string `json:"DocumentNumber"`
-		Phone          string `json:"Phone"`
+		DocumentNumber string
+		Phone          string
 	}
 
 	Documents struct {
-		Documents []StatusDocumentRequest `json:"Documents"`
+		Documents []StatusDocumentRequest `xml:"Documents>item"`
 	}
 
 	StatusDocument struct {
-		PossibilityCreateReturn              bool   `json:"PossibilityCreateReturn"`
-		PossibilityCreateRefusal             bool   `json:"PossibilityCreateRefusal"`
-		PossibilityChangeEW                  bool   `json:"PossibilityChangeEW"`
-		PossibilityCreateRedirecting         bool   `json:"PossibilityCreateRedirecting"`
-		Number                               string `json:"Number"`
-		Redelivery                           string `json:"Redelivery"`
-		RedeliverySum                        string `json:"RedeliverySum"`
-		RedeliveryNum                        string `json:"RedeliveryNum"`
-		RedeliveryPayer                      string `json:"RedeliveryPayer"`
-		OwnerDocumentType                    string `json:"OwnerDocumentType"`
-		LastCreatedOnTheBasisDocumentType    string `json:"LastCreatedOnTheBasisDocumentType"`
-		LastCreatedOnTheBasisPayerType       string `json:"LastCreatedOnTheBasisPayerType"`
-		LastCreatedOnTheBasisDateTime        string `json:"LastCreatedOnTheBasisDateTime"`
-		LastTransactionStatusGM              string `json:"LastTransactionStatusGM"`
-		LastTransactionDateTimeGM            string `json:"LastTransactionDateTimeGM"`
-		LastAmountTransferGM                 string `json:"LastAmountTransferGM"`
-		DateCreated                          string `json:"DateCreated"`
-		DocumentWeight                       string `json:"DocumentWeight"`
-		FactualWeight                        string `json:"FactualWeight"`
-		VolumeWeight                         string `json:"VolumeWeight"`
-		CheckWeight                          string `json:"CheckWeight"`
-		CheckWeightMethod                    string `json:"CheckWeightMethod"`
-		DocumentCost                         string `json:"DocumentCost"`
-		CalculatedWeight                     string `json:"CalculatedWeight"`
-		SumBeforeCheckWeight                 string `json:"SumBeforeCheckWeight"`
-		PayerType                            string `json:"PayerType"`
-		RecipientFullName                    string `json:"RecipientFullName"`
-		RecipientDateTime                    string `json:"RecipientDateTime"`
-		ScheduledDeliveryDate                string `json:"ScheduledDeliveryDate"`
-		PaymentMethod                        string `json:"PaymentMethod"`
-		CargoDescriptionString               string `json:"CargoDescriptionString"`
-		CargoType                            string `json:"CargoType"`
-		CitySender                           string `json:"CitySender"`
-		CityRecipient                        string `json:"CityRecipient"`
-		WarehouseRecipient                   string `json:"WarehouseRecipient"`
-		CounterpartyType                     string `json:"CounterpartyType"`
-		AfterpaymentOnGoodsCost              string `json:"AfterpaymentOnGoodsCost"`
-		ServiceType                          string `json:"ServiceType"`
-		UndeliveryReasonsSubtypeDescription  string `json:"UndeliveryReasonsSubtypeDescription"`
-		WarehouseRecipientNumber             string `json:"WarehouseRecipientNumber"`
-		LastCreatedOnTheBasisNumber          string `json:"LastCreatedOnTheBasisNumber"`
-		PhoneRecipient                       string `json:"PhoneRecipient"`
-		RecipientFullNameEW                  string `json:"RecipientFullNameEW"`
-		WarehouseRecipientInternetAddressRef string `json:"WarehouseRecipientInternetAddressRef"`
-		MarketplacePartnerToken              string `json:"MarketplacePartnerToken"`
-		ClientBarcode                        string `json:"ClientBarcode"`
-		RecipientAddress                     string `json:"RecipientAddress"`
-		CounterpartyRecipientDescription     string `json:"CounterpartyRecipientDescription"`
-		CounterpartySenderType               string `json:"CounterpartySenderType"`
-		DateScan                             string `json:"DateScan"`
-		PaymentStatus                        string `json:"PaymentStatus"`
-		PaymentStatusDate                    string `json:"PaymentStatusDate"`
-		AmountToPay                          string `json:"AmountToPay"`
-		AmountPaid                           string `json:"AmountPaid"`
-		Status                               string `json:"Status"`
-		StatusCode                           string `json:"StatusCode"`
-		RefEW                                string `json:"RefEW"`
-		BackwardDeliverySubTypesActions      string `json:"BackwardDeliverySubTypesActions"`
-		BackwardDeliverySubTypesServices     string `json:"BackwardDeliverySubTypesServices"`
-		UndeliveryReasons                    string `json:"UndeliveryReasons"`
-		DatePayedKeeping                     string `json:"DatePayedKeeping"`
-		InternationalDeliveryType            string `json:"InternationalDeliveryType"`
-		SeatsAmount                          string `json:"SeatsAmount"`
-		CardMaskedNumber                     string `json:"CardMaskedNumber"`
-		ExpressWaybillPaymentStatus          string `json:"ExpressWaybillPaymentStatus"`
-		ExpressWaybillAmountToPay            string `json:"ExpressWaybillAmountToPay"`
-		PhoneSender                          string `json:"PhoneSender"`
-		TrackingUpdateDate                   string `json:"TrackingUpdateDate"`
-		WarehouseSender                      string `json:"WarehouseSender"`
-		DateReturnCargo                      string `json:"DateReturnCargo"`
-		DateMoving                           string `json:"DateMoving"`
-		DateFirstDayStorage                  string `json:"DateFirstDayStorage"`
-		RefCityRecipient                     string `json:"RefCityRecipient"`
-		RefCitySender                        string `json:"RefCitySender"`
-		RefSettlementRecipient               string `json:"RefSettlementRecipient"`
-		RefSettlementSender                  string `json:"RefSettlementSender"`
-		SenderAddress                        string `json:"SenderAddress"`
-		SenderFullNameEW                     string `json:"SenderFullNameEW"`
-		AnnouncedPrice                       string `json:"AnnouncedPrice"`
-		AdditionalInformationEW              string `json:"AdditionalInformationEW"`
-		ActualDeliveryDate                   string `json:"ActualDeliveryDate"`
-		PostomatV3CellReservationNumber      string `json:"PostomatV3CellReservationNumber"`
-		OwnerDocumentNumber                  string `json:"OwnerDocumentNumber"`
-		LastAmountReceivedCommissionGM       string `json:"LastAmountReceivedCommissionGM"`
-		DeliveryTimeframe                    string `json:"DeliveryTimeframe"`
-		CreatedOnTheBasis                    string `json:"CreatedOnTheBasis"`
-		UndeliveryReasonsDate                string `json:"UndeliveryReasonsDate"`
-		RecipientWarehouseTypeRef            string `json:"RecipientWarehouseTypeRef"`
-		WarehouseRecipientRef                string `json:"WarehouseRecipientRef"`
-		CategoryOfWarehouse                  string `json:"CategoryOfWarehouse"`
-		WarehouseRecipientAddress            string `json:"WarehouseRecipientAddress"`
-		WarehouseSenderInternetAddressRef    string `json:"WarehouseSenderInternetAddressRef"`
-		WarehouseSenderAddress               string `json:"WarehouseSenderAddress"`
-		AviaDelivery                         string `json:"AviaDelivery"`
-		BarcodeRedBox                        string `json:"BarcodeRedBox"`
-		CargoReturnRefusal                   string `json:"CargoReturnRefusal"`
-		DaysStorageCargo                     string `json:"DaysStorageCargo"`
-		Packaging                            any    `json:"Packaging"`
-		PartialReturnGoods                   any    `json:"PartialReturnGoods"`
-		SecurePayment                        string `json:"SecurePayment"`
-		PossibilityChangeCash2Card           bool   `json:"PossibilityChangeCash2Card"`
-		PossibilityChangeDeliveryIntervals   bool   `json:"PossibilityChangeDeliveryIntervals"`
-		PossibilityTermExtensio              bool   `json:"PossibilityTermExtensio"`
-		StorageAmount                        string `json:"StorageAmount"`
-		StoragePrice                         string `json:"StoragePrice"`
-		FreeShipping                         string `json:"FreeShipping"`
-		LoyaltyCardRecipient                 string `json:"LoyaltyCardRecipient"`
+		PossibilityCreateReturn              bool
+		PossibilityCreateRefusal             bool
+		PossibilityChangeEW                  bool
+		PossibilityCreateRedirecting         bool
+		Number                               string
+		Redelivery                           bool
+		RedeliverySum                        float64
+		RedeliveryNum                        string
+		RedeliveryPayer                      string
+		OwnerDocumentType                    string
+		LastCreatedOnTheBasisDocumentType    string
+		LastCreatedOnTheBasisPayerType       string
+		LastCreatedOnTheBasisDateTime        string
+		LastTransactionStatusGM              string
+		LastTransactionDateTimeGM            string
+		LastAmountTransferGM                 string
+		DateCreated                          string
+		DocumentWeight                       float64
+		FactualWeight                        float64
+		VolumeWeight                         float64
+		CheckWeight                          string
+		CheckWeightMethod                    string
+		DocumentCost                         float64
+		CalculatedWeight                     float64
+		SumBeforeCheckWeight                 string
+		PayerType                            string
+		RecipientFullName                    string
+		RecipientDateTime                    string
+		ScheduledDeliveryDate                string
+		PaymentMethod                        string
+		CargoDescriptionString               string
+		CargoType                            string
+		CitySender                           string
+		CityRecipient                        string
+		WarehouseRecipient                   string
+		CounterpartyType                     string
+		AfterPaymentOnGoodsCost              string `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost"`
+		ServiceType                          string
+		UndeliveryReasonsSubtypeDescription  string
+		WarehouseRecipientNumber             string
+		LastCreatedOnTheBasisNumber          string
+		PhoneRecipient                       string
+		RecipientFullNameEW                  string
+		WarehouseRecipientInternetAddressRef string
+		MarketplacePartnerToken              string
+		ClientBarcode                        string
+		RecipientAddress                     string
+		CounterpartyRecipientDescription     string
+		CounterpartySenderType               string
+		DateScan                             string
+		PaymentStatus                        string
+		PaymentStatusDate                    string
+		AmountToPay                          float64
+		AmountPaid                           float64
+		Status                               string
+		StatusCode                           int
+		RefEW                                string
+		BackwardDeliverySubTypesActions      string
+		BackwardDeliverySubTypesServices     string
+		UndeliveryReasons                    string
+		DatePayedKeeping                     string
+		InternationalDeliveryType            string
+		SeatsAmount                          int
+		CardMaskedNumber                     string
+		ExpressWaybillPaymentStatus          string
+		ExpressWaybillAmountToPay            float64
+		PhoneSender                          string
+		TrackingUpdateDate                   string
+		WarehouseSender                      string
+		DateReturnCargo                      string
+		DateMoving                           string
+		DateFirstDayStorage                  string
+		RefCityRecipient                     string
+		RefCitySender                        string
+		RefSettlementRecipient               string
+		RefSettlementSender                  string
+		SenderAddress                        string
+		SenderFullNameEW                     string
+		AnnouncedPrice                       float64
+		AdditionalInformationEW              string
+		ActualDeliveryDate                   string
+		PostomatV3CellReservationNumber      string
+		OwnerDocumentNumber                  string
+		LastAmountReceivedCommissionGM       float64
+		DeliveryTimeframe                    string
+		CreatedOnTheBasis                    string
+		UndeliveryReasonsDate                string
+		RecipientWarehouseTypeRef            string
+		WarehouseRecipientRef                string
+		CategoryOfWarehouse                  string
+		WarehouseRecipientAddress            string
+		WarehouseSenderInternetAddressRef    string
+		WarehouseSenderAddress               string
+		AviaDelivery                         string
+		BarcodeRedBox                        string
+		CargoReturnRefusal                   bool
+		DaysStorageCargo                     string
+		Packaging                            []any `xml:"Packaging>item"`
+		PartialReturnGoods                   []any `xml:"PartialReturnGoods>item"`
+		SecurePayment                        bool
+		PossibilityChangeCash2Card           bool
+		PossibilityChangeDeliveryIntervals   bool
+		PossibilityTermExtensio              bool
+		StorageAmount                        int
+		StoragePrice                         float64
+		FreeShipping                         bool
+		LoyaltyCardRecipient                 string
 	}
 )
 
@@ -196,6 +196,6 @@ type (
 //
 // 112
 // Дата доставки перенесена Одержувачем
-func (c Client) GetStatusDocuments(documents Documents) (Response[StatusDocument], error) {
-	return request[StatusDocument](c, TrackingDocumentModel, "getStatusDocuments", documents)
+func (c *Client) GetStatusDocuments(documents Documents) (*Response[StatusDocument], error) {
+	return RawRequest[StatusDocument](c, TrackingDocumentModel, "getStatusDocuments", documents)
 }

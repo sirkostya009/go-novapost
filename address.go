@@ -8,55 +8,55 @@ type (
 	}
 
 	SettlementAddress struct {
-		Present                string `json:"Present"`
-		Warehouses             int    `json:"Warehouses"`
-		MainDescription        string `json:"MainDescription"`
-		Area                   string `json:"Area"`
-		Region                 string `json:"Region"`
-		SettlementTypeCode     string `json:"SettlementTypeCode"`
-		Ref                    string `json:"Ref"`
-		DeliveryCity           string `json:"DeliveryCity"`
-		AddressDeliveryAllowed bool   `json:"AddressDeliveryAllowed"`
-		StreetsAvailability    bool   `json:"StreetsAvailability"`
-		ParentRegionTypes      string `json:"ParentRegionTypes"`
-		ParentRegionCode       string `json:"ParentRegionCode"`
-		RegionTypes            string `json:"RegionTypes"`
-		RegionTypesCode        string `json:"RegionTypesCode"`
+		Present                string
+		Warehouses             int
+		MainDescription        string
+		Area                   string
+		Region                 string
+		SettlementTypeCode     string
+		Ref                    string
+		DeliveryCity           string
+		AddressDeliveryAllowed bool
+		StreetsAvailability    bool
+		ParentRegionTypes      string
+		ParentRegionCode       string
+		RegionTypes            string
+		RegionTypesCode        string
 	}
 
 	Settlement struct {
-		TotalCount string              `json:"TotalCount"`
-		Addresses  []SettlementAddress `json:"Addresses"`
+		TotalCount int
+		Addresses  []SettlementAddress `xml:"Addresses>item"`
 	}
 )
 
 // SearchSettlements Онлайн пошук в довіднику населених пунктів
 //
 // Метод «searchSettlements», працює в моделі «Address», цей метод необхідний для ОНЛАЙН ПОШУКУ населених пунктів.
-func (c Client) SearchSettlements(req SettlementRequest) (Response[Settlement], error) {
-	return request[Settlement](c, AddressModel, "getSettlements", req)
+func (c *Client) SearchSettlements(req SettlementRequest) (*Response[Settlement], error) {
+	return RawRequest[Settlement](c, AddressModel, "searchSettlements", req)
 }
 
 type (
 	SettlementStreetRequest struct {
-		StreetName    string `json:"StreetName"`
-		SettlementRef string `json:"SettlementRef"`
-		Page          int    `json:"Page"`
+		StreetName    string
+		SettlementRef string
+		Page          int
 	}
 
 	Location struct {
-		Latitude  string `json:"lat"`
-		Longitude string `json:"lon"`
+		Latitude  float64 `xml:"lat" json:"lat"`
+		Longitude float64 `xml:"lon" json:"lon"`
 	}
 
 	SettlementStreetAddress struct {
-		SettlementRef               string `json:"SettlementRef"`
-		SettlementStreetRef         string `json:"SettlementStreetRef"`
-		SettlementStreetDescription string `json:"SettlementStreetDescription"`
-		Present                     string `json:"Present"`
-		StreetsType                 string `json:"StreetsType"`
-		StreetsTypeDescription      string `json:"StreetsTypeDescription"`
-		Location                    `json:"Location"`
+		SettlementRef               string
+		SettlementStreetRef         string
+		SettlementStreetDescription string
+		Present                     string
+		StreetsType                 string
+		StreetsTypeDescription      string
+		Location                    Location
 	}
 
 	SettlementStreet struct {
@@ -69,23 +69,23 @@ type (
 //
 // Метод «searchSettlementStreets», працює в моделі «Address», цей метод необхідний для ОНЛАЙН ПОШУКУ вулиць в обраному
 // населеному пункті.
-func (c Client) SearchSettlementStreets(req SettlementStreetRequest) (Response[SettlementStreet], error) {
-	return request[SettlementStreet](c, AddressModel, "getSettlementStreets", req)
+func (c *Client) SearchSettlementStreets(req SettlementStreetRequest) (*Response[SettlementStreet], error) {
+	return RawRequest[SettlementStreet](c, AddressModel, "searchSettlementStreets", req)
 }
 
 type SaveAddressRequest struct {
-	CounterpartyRef string `json:"CounterpartyRef"`
-	StreetRef       string `json:"StreetRef"`
-	BuildingNumber  string `json:"BuildingNumber"`
-	Flat            string `json:"Flat"`
-	Note            string `json:"Note"`
+	CounterpartyRef string
+	StreetRef       string
+	BuildingNumber  string
+	Flat            string
+	Note            string
 }
 
 // SaveAddress Створити адресу контрагента (відправник / одержувач)
 //
 // Метод «save», працює в моделі «Address», цей метод зберігає адресу контрагента отримувача/відправника.
-func (c Client) SaveAddress(req SaveAddressRequest) (Response[RefDescription], error) {
-	return request[RefDescription](c, AddressModel, "save", req)
+func (c *Client) SaveAddress(req SaveAddressRequest) (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, AddressModel, "save", req)
 }
 
 // DeleteAddress Видалити адресу контрагента (відправник / одержувач)
@@ -94,17 +94,17 @@ func (c Client) SaveAddress(req SaveAddressRequest) (Response[RefDescription], e
 // відправника/отримувача.
 //
 // Редагувати дані контрагента можливо лише з моменту його створення та до моменту створення ІД з даним контаргентом.
-func (c Client) DeleteAddress(req RefDescription) (Response[RefDescription], error) {
-	return request[RefDescription](c, AddressModel, "delete", req)
+func (c *Client) DeleteAddress(rd RefDescription) (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, AddressModel, "delete", rd)
 }
 
 type UpdateAddressRequest struct {
-	CounterpartyRef string `json:"CounterpartyRef"`
-	StreetRef       string `json:"StreetRef"`
-	BuildingNumber  string `json:"BuildingNumber"`
-	Flat            string `json:"Flat"`
-	Note            string `json:"Note"`
-	Ref             string `json:"Ref"`
+	CounterpartyRef string
+	StreetRef       string
+	BuildingNumber  string
+	Flat            string
+	Note            string
+	Ref             string
 }
 
 // UpdateAddress Редагувати адресу контрагента (відправник / одержувач)
@@ -113,48 +113,48 @@ type UpdateAddressRequest struct {
 // відправника/отримувача.
 //
 // Редагувати дані контрагента можливо лише з моменту його створення та до моменту створення ІД з даним контаргентом.
-func (c Client) UpdateAddress(req UpdateAddressRequest) (Response[RefDescription], error) {
-	return request[RefDescription](c, AddressModel, "update", req)
+func (c *Client) UpdateAddress(req UpdateAddressRequest) (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, AddressModel, "update", req)
 }
 
 type (
 	GetSettlementsRequest struct {
-		AreaRef      string `json:"AreaRef"`
-		Ref          string `json:"Ref"`
-		RegionRef    string `json:"RegionRef"`
-		Page         int    `json:"Page"`
-		Warehouse    string `json:"Warehouse"`
-		FindByString string `json:"FindByString"`
-		Limit        int    `json:"Limit"`
+		AreaRef      string
+		Ref          string
+		RegionRef    string
+		Page         int
+		Warehouse    bool
+		FindByString string
+		Limit        int
 	}
 
 	SettlementGeneral struct {
-		Ref                               string `json:"Ref"`
-		SettlementType                    string `json:"SettlementType"`
-		Latitude                          string `json:"Latitude"`
-		Longitude                         string `json:"Longitude"`
-		Description                       string `json:"Description"`
-		DescriptionTranslit               string `json:"DescriptionTranslit"`
-		SettlementTypeDescription         string `json:"SettlementTypeDescription"`
-		SettlementTypeDescriptionTranslit string `json:"SettlementTypeDescriptionTranslit"`
-		Region                            string `json:"Region"`
-		RegionsDescription                string `json:"RegionsDescription"`
-		RegionsDescriptionTranslit        string `json:"RegionsDescriptionTranslit"`
-		Area                              string `json:"Area"`
-		AreaDescription                   string `json:"AreaDescription"`
-		AreaDescriptionTranslit           string `json:"AreaDescriptionTranslit"`
-		Index1                            string `json:"Index1"`
-		Index2                            string `json:"Index2"`
-		IndexCOATSU1                      string `json:"IndexCOATSU1"`
-		Delivery1                         string `json:"Delivery1"`
-		Delivery2                         string `json:"Delivery2"`
-		Delivery3                         string `json:"Delivery3"`
-		Delivery4                         string `json:"Delivery4"`
-		Delivery5                         string `json:"Delivery5"`
-		Delivery6                         string `json:"Delivery6"`
-		Delivery7                         string `json:"Delivery7"`
-		Warehouse                         string `json:"Warehouse"`
-		SpecialCashCheck                  int    `json:"SpecialCashCheck"`
+		Ref                               string
+		SettlementType                    string
+		Latitude                          float64
+		Longitude                         float64
+		Description                       string
+		DescriptionTranslit               string
+		SettlementTypeDescription         string
+		SettlementTypeDescriptionTranslit string
+		Region                            string
+		RegionsDescription                string
+		RegionsDescriptionTranslit        string
+		Area                              string
+		AreaDescription                   string
+		AreaDescriptionTranslit           string
+		Index1                            string
+		Index2                            string
+		IndexCOATSU1                      string
+		Delivery1                         bool
+		Delivery2                         bool
+		Delivery3                         bool
+		Delivery4                         bool
+		Delivery5                         bool
+		Delivery6                         bool
+		Delivery7                         bool
+		Warehouse                         bool
+		SpecialCashCheck                  bool
 	}
 )
 
@@ -172,36 +172,36 @@ type (
 //
 // Параметр "Warehouse" із значенням "1 или 0" дозволить відобразити лише ті населені пункти в яких наявні відділення
 // "Нова Пошта".
-func (c Client) GetSettlements(req GetSettlementsRequest) (Response[SettlementGeneral], error) {
-	return request[SettlementGeneral](c, AddressGeneralModel, "getSettlements", req)
+func (c *Client) GetSettlements(req GetSettlementsRequest) (*Response[SettlementGeneral], error) {
+	return RawRequest[SettlementGeneral](c, AddressGeneralModel, "getSettlements", req)
 }
 
 type (
 	CityRequest struct {
-		Ref          string `json:"Ref"`
-		Page         int    `json:"Page"`
-		FindByString string `json:"FindByString"`
-		Limit        int    `json:"Limit"`
+		Ref          string
+		Page         int
+		FindByString string
+		Limit        int
 	}
 
 	City struct {
-		Description                string `json:"Description"`
-		Ref                        string `json:"Ref"`
-		Delivery1                  string `json:"Delivery1"`
-		Delivery2                  string `json:"Delivery2"`
-		Delivery3                  string `json:"Delivery3"`
-		Delivery4                  string `json:"Delivery4"`
-		Delivery5                  string `json:"Delivery5"`
-		Delivery6                  string `json:"Delivery6"`
-		Delivery7                  string `json:"Delivery7"`
-		Area                       string `json:"Area"`
-		SettlementType             string `json:"SettlementType"`
-		IsBranch                   string `json:"IsBranch"`
-		PreventEntryNewStreetsUser string `json:"PreventEntryNewStreetsUser"`
-		CityID                     string `json:"CityID"`
-		SettlementTypeDescription  string `json:"SettlementTypeDescription"`
-		SpecialCashCheck           int    `json:"SpecialCashCheck"`
-		AreaDescription            string `json:"AreaDescription"`
+		Description                string
+		Ref                        string
+		Delivery1                  bool
+		Delivery2                  bool
+		Delivery3                  bool
+		Delivery4                  bool
+		Delivery5                  bool
+		Delivery6                  bool
+		Delivery7                  bool
+		Area                       string
+		SettlementType             string
+		IsBranch                   bool
+		PreventEntryNewStreetsUser bool
+		CityID                     int
+		SettlementTypeDescription  string
+		SpecialCashCheck           bool
+		AreaDescription            string
 	}
 )
 
@@ -216,132 +216,132 @@ type (
 // Якщо до цього запиту додати параметр «FindByString» (пошук за рядками) та у його властивостях прописати назву
 // населеного пункту (Бровари), який потрібно знайти, то отримаємо запит за допомогою якого в довіднику знаходиться
 // населений пункт.
-func (c Client) GetCities(req CityRequest) (Response[City], error) {
-	return request[City](c, AddressModel, "getCities", req)
+func (c *Client) GetCities(req CityRequest) (*Response[City], error) {
+	return RawRequest[City](c, AddressModel, "getCities", req)
 }
 
 type Area struct {
-	Ref         string `json:"Ref"`
-	AreasCenter string `json:"AreasCenter"`
-	Description string `json:"Description"`
+	Ref         string
+	AreasCenter string
+	Description string
 }
 
 // GetAreas Довідник географічних областей України
 //
 // Метод «getAreas», працює в моделі «Address», цей метод необхідий для завантаження довідника географічних областей
 // України, компанії «Новая почша».
-func (c Client) GetAreas() (Response[Area], error) {
-	return request[Area](c, AddressModel, "getAreas", nil)
+func (c *Client) GetAreas() (*Response[Area], error) {
+	return RawRequest[Area](c, AddressModel, "getAreas", nil)
 }
 
 type (
 	WarehouseRequest struct {
-		PostFinance        bool   `json:"PostFinance"`
-		BicycleParking     bool   `json:"BicycleParking"`
-		POSTerminal        bool   `json:"POSTerminal"`
-		FindByString       string `json:"FindByString"`
-		CityName           string `json:"CityName"`
-		CityRef            string `json:"CityRef"`
-		Page               int    `json:"Page"`
-		Limit              int    `json:"Limit"`
-		Language           string `json:"Language"`
-		TypeOfWarehouseRef string `json:"TypeOfWarehouseRef"`
-		WarehouseId        string `json:"WarehouseId"`
+		PostFinance        bool
+		BicycleParking     bool
+		POSTerminal        bool
+		FindByString       string
+		CityName           string
+		CityRef            string
+		Page               int
+		Limit              int
+		Language           string
+		TypeOfWarehouseRef string
+		WarehouseId        int
 	}
 
 	SendingLimitationsOnDimensions struct {
-		Width  int `json:"Width"`
-		Height int `json:"Height"`
-		Length int `json:"Length"`
+		Width  float64
+		Height float64
+		Length float64
 	}
 
 	ReceivingLimitationsOnDimensions struct {
-		Width  int `json:"Width"`
-		Height int `json:"Height"`
-		Length int `json:"Length"`
+		Width  float64
+		Height float64
+		Length float64
 	}
 
 	Reception struct {
-		Monday    string `json:"Monday"`
-		Tuesday   string `json:"Tuesday"`
-		Wednesday string `json:"Wednesday"`
-		Thursday  string `json:"Thursday"`
-		Friday    string `json:"Friday"`
-		Saturday  string `json:"Saturday"`
-		Sunday    string `json:"Sunday"`
+		Monday    string
+		Tuesday   string
+		Wednesday string
+		Thursday  string
+		Friday    string
+		Saturday  string
+		Sunday    string
 	}
 
 	Delivery struct {
-		Monday    string `json:"Monday"`
-		Tuesday   string `json:"Tuesday"`
-		Wednesday string `json:"Wednesday"`
-		Thursday  string `json:"Thursday"`
-		Friday    string `json:"Friday"`
-		Saturday  string `json:"Saturday"`
-		Sunday    string `json:"Sunday"`
+		Monday    string
+		Tuesday   string
+		Wednesday string
+		Thursday  string
+		Friday    string
+		Saturday  string
+		Sunday    string
 	}
 
 	Schedule struct {
-		Monday    string `json:"Monday"`
-		Tuesday   string `json:"Tuesday"`
-		Wednesday string `json:"Wednesday"`
-		Thursday  string `json:"Thursday"`
-		Friday    string `json:"Friday"`
-		Saturday  string `json:"Saturday"`
-		Sunday    string `json:"Sunday"`
+		Monday    string
+		Tuesday   string
+		Wednesday string
+		Thursday  string
+		Friday    string
+		Saturday  string
+		Sunday    string
 	}
 
 	Warehouse struct {
-		SiteKey                          string `json:"SiteKey"`
-		Description                      string `json:"Description"`
-		ShortAddress                     string `json:"ShortAddress"`
-		Phone                            string `json:"Phone"`
-		TypeOfWarehouse                  string `json:"TypeOfWarehouse"`
-		Ref                              string `json:"Ref"`
-		Number                           string `json:"Number"`
-		CityRef                          string `json:"CityRef"`
-		CityDescription                  string `json:"CityDescription"`
-		SettlementRef                    string `json:"SettlementRef"`
-		SettlementDescription            string `json:"SettlementDescription"`
-		SettlementAreaDescription        string `json:"SettlementAreaDescription"`
-		SettlementRegionsDescription     string `json:"SettlementRegionsDescription"`
-		SettlementTypeDescription        string `json:"SettlementTypeDescription"`
-		Longitude                        string `json:"Longitude"`
-		Latitude                         string `json:"Latitude"`
-		PostFinance                      string `json:"PostFinance"`
-		BicycleParking                   string `json:"BicycleParking"`
-		PaymentAccess                    string `json:"PaymentAccess"`
-		POSTerminal                      string `json:"POSTerminal"`
-		InternationalShipping            string `json:"InternationalShipping"`
-		SelfServiceWorkplacesCount       string `json:"SelfServiceWorkplacesCount"`
-		TotalMaxWeightAllowed            string `json:"TotalMaxWeightAllowed"`
-		PlaceMaxWeightAllowed            string `json:"PlaceMaxWeightAllowed"`
-		SendingLimitationsOnDimensions   `json:"SendingLimitationsOnDimensions"`
-		ReceivingLimitationsOnDimensions `json:"ReceivingLimitationsOnDimensions"`
-		Reception                        `json:"Reception"`
-		Delivery                         `json:"Delivery"`
-		Schedule                         `json:"Schedule"`
-		DistrictCode                     string `json:"DistrictCode"`
-		WarehouseStatus                  string `json:"WarehouseStatus"`
-		WarehouseStatusDate              string `json:"WarehouseStatusDate"`
-		WarehouseIllusha                 string `json:"WarehouseIllusha"`
-		CategoryOfWarehouse              string `json:"CategoryOfWarehouse"`
-		Direct                           string `json:"Direct"`
-		RegionCity                       string `json:"RegionCity"`
-		WarehouseForAgent                string `json:"WarehouseForAgent"`
-		GeneratorEnabled                 string `json:"GeneratorEnabled"`
-		MaxDeclaredCost                  string `json:"MaxDeclaredCost"`
-		WorkInMobileAwis                 string `json:"WorkInMobileAwis"`
-		DenyToSelect                     string `json:"DenyToSelect"`
-		CanGetMoneyTransfer              string `json:"CanGetMoneyTransfer"`
-		HasMirror                        string `json:"HasMirror"`
-		HasFittingRoom                   string `json:"HasFittingRoom"`
-		OnlyReceivingParcel              string `json:"OnlyReceivingParcel"`
-		PostMachineType                  string `json:"PostMachineType"`
-		PostalCodeUA                     string `json:"PostalCodeUA"`
-		WarehouseIndex                   string `json:"WarehouseIndex"`
-		BeaconCode                       string `json:"BeaconCode"`
-		PostomatFor                      string `json:"PostomatFor"`
+		SiteKey                          int
+		Description                      string
+		ShortAddress                     string
+		Phone                            string
+		TypeOfWarehouse                  string
+		Ref                              string
+		Number                           string
+		CityRef                          string
+		CityDescription                  string
+		SettlementRef                    string
+		SettlementDescription            string
+		SettlementAreaDescription        string
+		SettlementRegionsDescription     string
+		SettlementTypeDescription        string
+		Longitude                        float64
+		Latitude                         float64
+		PostFinance                      bool
+		BicycleParking                   bool
+		PaymentAccess                    bool
+		POSTerminal                      bool
+		InternationalShipping            bool
+		SelfServiceWorkplacesCount       bool
+		TotalMaxWeightAllowed            float64
+		PlaceMaxWeightAllowed            float64
+		SendingLimitationsOnDimensions   SendingLimitationsOnDimensions
+		ReceivingLimitationsOnDimensions ReceivingLimitationsOnDimensions
+		Reception                        Reception
+		Delivery                         Delivery
+		Schedule                         Schedule
+		DistrictCode                     string
+		WarehouseStatus                  string
+		WarehouseStatusDate              string
+		WarehouseIllusha                 string
+		CategoryOfWarehouse              string
+		Direct                           string
+		RegionCity                       string
+		WarehouseForAgent                bool
+		GeneratorEnabled                 bool
+		MaxDeclaredCost                  float64
+		WorkInMobileAwis                 bool
+		DenyToSelect                     bool
+		CanGetMoneyTransfer              bool
+		HasMirror                        bool
+		HasFittingRoom                   bool
+		OnlyReceivingParcel              bool
+		PostMachineType                  string
+		PostalCodeUA                     string
+		WarehouseIndex                   string
+		BeaconCode                       string
+		PostomatFor                      string
 	}
 )
 
@@ -349,30 +349,30 @@ type (
 //
 // Метод «getWarehouses», працює в моделі «Address», цей метод завантажує довідник відділень «Нова пошта» в розрізі
 // населених пунктів України.
-func (c Client) GetWarehouses(req WarehouseRequest) (Response[Warehouse], error) {
-	return request[Warehouse](c, AddressModel, "getWarehouses", req)
+func (c *Client) GetWarehouses(req WarehouseRequest) (*Response[Warehouse], error) {
+	return RawRequest[Warehouse](c, AddressModel, "getWarehouses", req)
 }
 
 // GetWarehouseTypes Довідник типів відділень
 //
 // Метод «getWarehouseTypes», працює в моделі «Address», цей метод завантажує довідник типів відділень «Нова пошта».
-func (c Client) GetWarehouseTypes() (Response[RefDescription], error) {
-	return request[RefDescription](c, AddressModel, "getWarehouseTypes", nil)
+func (c *Client) GetWarehouseTypes() (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, AddressModel, "getWarehouseTypes", nil)
 }
 
 type (
 	StreetRequest struct {
-		CityRef      string `json:"CityRef"`
-		FindByString string `json:"FindByString"`
-		Page         int    `json:"Page"`
-		Limit        int    `json:"Limit"`
+		CityRef      string
+		FindByString string
+		Page         int
+		Limit        int
 	}
 
 	Street struct {
-		Ref            string `json:"Ref"`
-		Description    string `json:"Description"`
-		StreetsTypeRef string `json:"StreetsTypeRef"`
-		StreetsType    string `json:"StreetsType"`
+		Ref            string
+		Description    string
+		StreetsTypeRef string
+		StreetsType    string
 	}
 )
 
@@ -384,20 +384,20 @@ type (
 // Довідник використовується під час створення відправлень з типом доставки від/до адреси клієнта. Якщо в цей запит
 // додати параметр FindByString (пошук по рядках) і в його властивостях прописати назву вулиці (Броварський), який
 // потрібно знайти, то отримаємо запит за допомогою якого в довіднику знаходиться проспект або вулиця.
-func (c Client) GetStreet(req StreetRequest) (Response[Street], error) {
-	return request[Street](c, AddressModel, "getStreet", req)
+func (c *Client) GetStreet(req StreetRequest) (*Response[Street], error) {
+	return RawRequest[Street](c, AddressModel, "getStreet", req)
 }
 
 type (
 	AreaRef struct {
-		AreaRef string `json:"AreaRef"`
+		AreaRef string
 	}
 
 	AreaRegion struct {
-		Ref         string `json:"Ref"`
-		AreasCenter string `json:"AreasCenter"`
-		Description string `json:"Description"`
-		RegionType  string `json:"RegionType"`
+		Ref         string
+		AreasCenter string
+		Description string
+		RegionType  string
 	}
 )
 
@@ -405,14 +405,14 @@ type (
 //
 // Метод дозволяє отримати довідник районів облестей населених пунктів, тих самих які можна побачити викорисовуючи метод
 // «getSettlements»
-func (c Client) GetSettlementCountryRegion(ref AreaRef) (Response[AreaRegion], error) {
-	return request[AreaRegion](c, AddressModel, "getSettlementCountryRegion", ref)
+func (c *Client) GetSettlementCountryRegion(ref AreaRef) (*Response[AreaRegion], error) {
+	return RawRequest[AreaRegion](c, AddressModel, "getSettlementCountryRegion", ref)
 }
 
 // GetSettlementAreas Довідник областей населених пунктів
 //
 // Метод дозволяє отримати довідник облестей населених пунктів, тих самих які можна побачити викорисовуючи метод
 // «getSettlements»
-func (c Client) GetSettlementAreas(ref Ref) (Response[AreaRegion], error) {
-	return request[AreaRegion](c, AddressModel, "getSettlementAreas", ref)
+func (c *Client) GetSettlementAreas(ref Ref) (*Response[AreaRegion], error) {
+	return RawRequest[AreaRegion](c, AddressModel, "getSettlementAreas", ref)
 }

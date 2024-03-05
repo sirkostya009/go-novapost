@@ -1,23 +1,21 @@
 package novapost
 
-import "time"
-
 type (
 	InsertDocumentsRequest struct {
-		Ref          string   `json:"Ref"`
-		DocumentRefs []string `json:"DocumentRefs"`
-		Date         string   `json:"Date"`
+		Ref          string
+		DocumentRefs []string `xml:"DocumentRefs>item"`
+		Date         string
 	}
 
 	RegistryDocument struct {
-		Ref         string      `json:"Ref"`
-		Description string      `json:"Description"`
-		Number      string      `json:"Number"`
-		Date        string      `json:"Date"`
-		Errors      []string    `json:"Errors"`
-		Warnings    []string    `json:"Warnings"`
-		Data        any         `json:"Data"`
-		Success     []RefNumber `json:"Success"`
+		Ref         string
+		Description string
+		Number      string
+		Date        string
+		Errors      []string `xml:"Errors>item"`
+		Warnings    []string `xml:"Warnings>item"`
+		Data        []any
+		Success     []RefNumber `xml:"Success>item"`
 	}
 )
 
@@ -48,28 +46,28 @@ type (
 // Для передачі оформлених відправлень по Реєстру, інтегрується функціонал формування та видалення реєстрів
 // приймання-передачі відправлень. При передачі відправлень по Реєстру необхідно на кожному відправленні розміщувати
 // маркування і роздрукувати два екземпляри Реєстру.
-func (c Client) InsertDocuments(req InsertDocumentsRequest) (Response[RegistryDocument], error) {
-	return request[RegistryDocument](c, ScanSheetModel, "insertDocuments", req)
+func (c *Client) InsertDocuments(req InsertDocumentsRequest) (*Response[RegistryDocument], error) {
+	return RawRequest[RegistryDocument](c, ScanSheetModel, "insertDocuments", req)
 }
 
 type (
 	ScanSheetRequest struct {
-		Ref             string `json:"Ref"`
-		CounterpartyRef string `json:"CounterpartyRef"`
+		Ref             string
+		CounterpartyRef string
 	}
 
 	ScanSheet struct {
-		Ref              string    `json:"Ref"`
-		Number           string    `json:"Number"`
-		DateTime         time.Time `json:"DateTime"`
-		Count            string    `json:"Count"`
-		CitySenderRef    string    `json:"CitySenderRef"`
-		CitySender       string    `json:"CitySender"`
-		SenderAddressRef string    `json:"SenderAddressRef"`
-		SenderAddress    string    `json:"SenderAddress"`
-		SenderRef        string    `json:"SenderRef"`
-		Sender           string    `json:"Sender"`
-		Printed          string    `json:"Printed"`
+		Ref              string
+		Number           string
+		DateTime         string
+		Count            int
+		CitySenderRef    string
+		CitySender       string
+		SenderAddressRef string
+		SenderAddress    string
+		SenderRef        string
+		Sender           string
+		Printed          bool
 	}
 )
 
@@ -80,8 +78,8 @@ type (
 // Для передачі оформлених відправлень по Реєстру, інтегрується функціонал формування та видалення реєстрів
 // приймання-передачі відправлень. При передачі відправлень по Реєстру необхідно на кожному відправленні розміщувати
 // маркування та роздрукувати два екземпляри Реєстру.
-func (c Client) GetScanSheet(req ScanSheetRequest) (Response[ScanSheet], error) {
-	return request[ScanSheet](c, ScanSheetModel, "getScanSheet", req)
+func (c *Client) GetScanSheet(req ScanSheetRequest) (*Response[ScanSheet], error) {
+	return RawRequest[ScanSheet](c, ScanSheetModel, "getScanSheet", req)
 }
 
 // GetScanSheetList Завантажити список реєстрів
@@ -89,24 +87,24 @@ func (c Client) GetScanSheet(req ScanSheetRequest) (Response[ScanSheet], error) 
 // Для передачі оформлених відправлень по Реєстру, інтегрується функціонал формування та видалення реєстрів
 // приймання-передачі відправлень. При передачі відправлень по Реєстру необхідно на кожнома відправленні розміщувати
 // маркування та роздрукувати два екземпляри Реєстру.
-func (c Client) GetScanSheetList() (Response[ScanSheet], error) {
-	return request[ScanSheet](c, ScanSheetModel, "getScanSheetList", nil)
+func (c *Client) GetScanSheetList() (*Response[ScanSheet], error) {
+	return RawRequest[ScanSheet](c, ScanSheetModel, "getScanSheetList", nil)
 }
 
 type (
 	ScanSheetRefs struct {
-		ScanSheetRefs []string `json:"ScanSheetRefs"`
+		ScanSheetRefs []string `xml:"ScanSheetRefs>item"`
 	}
 
 	ScanSheetRef struct {
-		Ref    string `json:"Ref"`
-		Number string `json:"Number"`
-		Error  string `json:"Error"`
+		Ref    string
+		Number string
+		Error  string
 	}
 
 	RemoveDocumentsRequest struct {
-		DocumentRefs []string `json:"DocumentRefs"`
-		Ref          string   `json:"Ref"`
+		DocumentRefs []string `xml:"DocumentRefs>item"`
+		Ref          string
 	}
 )
 
@@ -115,8 +113,8 @@ type (
 // Після видалення реєстра, з інформаційної системи «Нова пошта" видаляється номер реєстру, а експрес-накладні, що були
 // включені в нього звільняються, але не видаляються (відбувається розформування рееєстру). Для видалення реєстру
 // необхідно сформувати відповідний запит.
-func (c Client) DeleteScanSheet(req ScanSheetRefs) (Response[ScanSheetRef], error) {
-	return request[ScanSheetRef](c, ScanSheetModel, "delete", req)
+func (c *Client) DeleteScanSheet(ssr ScanSheetRefs) (*Response[ScanSheetRef], error) {
+	return RawRequest[ScanSheetRef](c, ScanSheetModel, "delete", ssr)
 }
 
 // RemoveDocuments Видалити експрес-накладні з реєстру
@@ -124,6 +122,6 @@ func (c Client) DeleteScanSheet(req ScanSheetRefs) (Response[ScanSheetRef], erro
 // Після видалення реєстру в інформаційній системі «Нова пошта» видаляється номер реєстру, але експрес-накладні, які
 // знаходилися в реєстрі, не видаляються (відбувається розформування реєстру). Для видалення експрес-накладних необхідно
 // сформувати відповідний запит.
-func (c Client) RemoveDocuments(req RemoveDocumentsRequest) (Response[ScanSheetRef], error) {
-	return request[ScanSheetRef](c, ScanSheetModel, "removeDocuments", req)
+func (c *Client) RemoveDocuments(req RemoveDocumentsRequest) (*Response[ScanSheetRef], error) {
+	return RawRequest[ScanSheetRef](c, ScanSheetModel, "removeDocuments", req)
 }

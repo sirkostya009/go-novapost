@@ -1,10 +1,8 @@
 package novapost
 
 import (
-	"encoding/json"
 	"encoding/xml"
 	"net/http"
-	"time"
 )
 
 const (
@@ -14,53 +12,40 @@ const (
 
 type Client struct {
 	apiKey      string
-	http        *http.Client
-	url         string
-	marshaler   func(any) ([]byte, error)
-	unmarshaler func([]byte, any) error
+	HTTPClient  *http.Client
+	Url         string
+	Marshaler   func(any) ([]byte, error)
+	Unmarshaler func([]byte, any) error
 }
 
 type Option func(*Client)
 
-func WithTimeout(t time.Duration) Option {
+func WithHTTPClient(httpClient *http.Client) Option {
 	return func(c *Client) {
-		c.http.Timeout = t
+		c.HTTPClient = httpClient
 	}
-}
-
-func WithJSON(c *Client) {
-	c.url = JSONUrl
-	c.marshaler = json.Marshal
-	c.unmarshaler = json.Unmarshal
-}
-
-func WithXML(c *Client) {
-	c.url = XMLUrl
-	c.marshaler = xml.Marshal
-	c.unmarshaler = xml.Unmarshal
 }
 
 func WithURL(url string) Option {
 	return func(c *Client) {
-		c.url = url
+		c.Url = url
 	}
 }
 
 func WithMarshaler(marshaler func(any) ([]byte, error)) Option {
 	return func(c *Client) {
-		c.marshaler = marshaler
+		c.Marshaler = marshaler
 	}
 }
 
 func WithUnmarshaler(unmarshaler func([]byte, any) error) Option {
 	return func(c *Client) {
-		c.unmarshaler = unmarshaler
+		c.Unmarshaler = unmarshaler
 	}
 }
 
 func NewClient(apiKey string, options ...Option) *Client {
-	c := &Client{apiKey: apiKey, http: &http.Client{}}
-	WithJSON(c)
+	c := &Client{apiKey, &http.Client{}, XMLUrl, xml.Marshal, xml.Unmarshal}
 	for _, option := range options {
 		option(c)
 	}

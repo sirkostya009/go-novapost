@@ -2,29 +2,29 @@ package novapost
 
 type (
 	CounterpartyRequest struct {
-		FirstName            string `json:"FirstName"`
-		MiddleName           string `json:"MiddleName"`
-		LastName             string `json:"LastName"`
-		Phone                string `json:"Phone"`
-		Email                string `json:"Email"`
-		CounterpartyType     string `json:"CounterpartyType"`
-		EDRPOU               string `json:"EDRPOU"`
-		CounterpartyProperty string `json:"CounterpartyProperty"`
-		CityRef              string `json:"CityRef"`
+		FirstName            string
+		MiddleName           string
+		LastName             string
+		Phone                string
+		Email                string
+		CounterpartyType     string
+		EDRPOU               string
+		CounterpartyProperty string
+		CityRef              string
 	}
 
 	Counterparty struct {
-		Ref                      string                  `json:"Ref"`
-		Description              string                  `json:"Description"`
-		FirstName                string                  `json:"FirstName"`
-		MiddleName               string                  `json:"MiddleName"`
-		LastName                 string                  `json:"LastName"`
-		Counterparty             string                  `json:"Counterparty"`
-		OwnershipForm            string                  `json:"OwnershipForm"`
-		OwnershipFormDescription string                  `json:"OwnershipFormDescription"`
-		EDRPOU                   string                  `json:"EDRPOU"`
-		CounterpartyType         string                  `json:"CounterpartyType"`
-		ContactPerson            Response[ContactPerson] `json:"ContactPerson"`
+		Ref                      string
+		Description              string
+		FirstName                string
+		MiddleName               string
+		LastName                 string
+		Counterparty             string
+		OwnershipForm            string
+		OwnershipFormDescription string
+		EDRPOU                   string
+		CounterpartyType         string
+		ContactPerson            Response[ContactPerson]
 	}
 )
 
@@ -39,29 +39,29 @@ type (
 // Дані по отримувачу вносяться виключно Українською мовою.
 //
 // Рекомендовано проводити оновлення довідника один раз на місяць.
-func (c Client) SaveCounterparty(req CounterpartyRequest) (Response[Counterparty], error) {
-	return request[Counterparty](c, CounterpartyModel, "save", req)
+func (c *Client) SaveCounterparty(req CounterpartyRequest) (*Response[Counterparty], error) {
+	return RawRequest[Counterparty](c, CounterpartyModel, "save", req)
 }
 
 // UpdateCounterparty Оновити дані Контрагента
 //
 // Метод «update», працює в моделі «Counterparty», цей метод використовується для оновлення/внесення змін в дані
 // контрагента отримувача.
-func (c Client) UpdateCounterparty(req CounterpartyRequest) (Response[Counterparty], error) {
-	return request[Counterparty](c, CounterpartyModel, "update", req)
+func (c *Client) UpdateCounterparty(req CounterpartyRequest) (*Response[Counterparty], error) {
+	return RawRequest[Counterparty](c, CounterpartyModel, "update", req)
 }
 
 // DeleteCounterparty Видалити Контрагента одержувача
 //
 // Метод «delete», працює в моделі «Counterparty», цей метод використовується для видалення контрагента отримувача. Для
 // видалення контрагента відправника необхідно звертатися до Вашого менеджера
-func (c Client) DeleteCounterparty(ref Ref) (Response[Ref], error) {
-	return request[Ref](c, CounterpartyModel, "delete", ref)
+func (c *Client) DeleteCounterparty(ref Ref) (*Response[Ref], error) {
+	return RawRequest[Ref](c, CounterpartyModel, "delete", ref)
 }
 
 type CounterpartyAddressRequest struct {
-	Ref                  string `json:"Ref"`
-	CounterpartyProperty string `json:"CounterpartyProperty"`
+	Ref                  string
+	CounterpartyProperty string
 }
 
 // GetCounterpartyAddresses Завантажити список адрес Контрагентів
@@ -72,59 +72,59 @@ type CounterpartyAddressRequest struct {
 // Необхідно зберігати копію довідника на стороні клієнта та підтримувати його в актуальному стані.
 //
 // Рекомендовано проводити оновлення довідників раз на місяць.
-func (c Client) GetCounterpartyAddresses(req CounterpartyAddressRequest) (Response[RefDescription], error) {
-	return request[RefDescription](c, CounterpartyModel, "getCounterpartyAddresses", req)
+func (c *Client) GetCounterpartyAddresses(req CounterpartyAddressRequest) (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CounterpartyModel, "getCounterpartyAddresses", req)
 }
 
 type (
 	DebtorParams struct {
-		AgreementId   string `json:"AgreementId"`
-		PaymTermId    string `json:"PaymTermId"`
-		PastDueDebts  string `json:"PastDueDebts"`
-		BlockedStatus string `json:"BlockedStatus"`
+		AgreementId   int
+		PaymTermId    string
+		PastDueDebts  float64
+		BlockedStatus int
 	}
 
 	Vbf struct {
-		Vbf int `json:"vbf"`
+		Vbf int `xml:"vbf" json:"vbf"`
 	}
 
 	CounterpartyOptions struct {
-		AddressDocumentDelivery           bool           `json:"AddressDocumentDelivery"`
-		AfterpaymentType                  bool           `json:"AfterpaymentType"`
-		BackwardDeliverySubtypesDocuments bool           `json:"BackwardDeliverySubtypesDocuments"`
-		BlockInternationalSenderLKK       bool           `json:"BlockInternationalSenderLKK"`
-		CalculationByFactualWeight        bool           `json:"CalculationByFactualWeight"`
-		CanAfterpaymentOnGoodsCost        bool           `json:"CanAfterpaymentOnGoodsCost"`
-		CanCreditDocuments                bool           `json:"CanCreditDocuments"`
-		CanEWTransporter                  bool           `json:"CanEWTransporter"`
-		CanForwardingService              bool           `json:"CanForwardingService"`
-		CanNonCashPayment                 bool           `json:"CanNonCashPayment"`
-		CanPayTheThirdPerson              bool           `json:"CanPayTheThirdPerson"`
-		CanSameDayDelivery                bool           `json:"CanSameDayDelivery"`
-		CanSameDayDeliveryStandart        bool           `json:"CanSameDayDeliveryStandart"`
-		CanSentFromPostomat               bool           `json:"CanSentFromPostomat"`
-		CanSignedDocuments                bool           `json:"CanSignedDocuments"`
-		CarCall                           bool           `json:"CarCall"`
-		CreditDocuments                   bool           `json:"CreditDocuments"`
-		CustomerReturn                    bool           `json:"CustomerReturn"`
-		DayCustomerReturn                 bool           `json:"DayCustomerReturn"`
-		DebtorParams                      []DebtorParams `json:"DebtorParams"`
-		DeliveryByHand                    bool           `json:"DeliveryByHand"`
-		DescentFromFloor                  bool           `json:"DescentFromFloor"`
-		FillingWarranty                   bool           `json:"FillingWarranty"`
-		HaveMoneyWallets                  bool           `json:"HaveMoneyWallets"`
-		HideDeliveryCost                  bool           `json:"HideDeliveryCost"`
-		InternationalDelivery             bool           `json:"InternationalDelivery"`
-		InternationalDeliveryServiceType  bool           `json:"InternationalDeliveryServiceType"`
-		LoyaltyProgram                    bool           `json:"LoyaltyProgram"`
-		MainCounterparty                  bool           `json:"MainCounterparty"`
-		PickupService                     bool           `json:"PickupService"`
-		PrintMarkingAllowedTypes          Vbf            `json:"PrintMarkingAllowedTypes"`
-		SecurePayment                     bool           `json:"SecurePayment"`
-		Services                          bool           `json:"Services"`
-		ShowDeliveryByHand                bool           `json:"ShowDeliveryByHand"`
-		SignedDocuments                   bool           `json:"SignedDocuments"`
-		TransferPricingConditions         bool           `json:"TransferPricingConditions"`
+		AddressDocumentDelivery           bool
+		AfterpaymentType                  bool
+		BackwardDeliverySubtypesDocuments bool
+		BlockInternationalSenderLKK       bool
+		CalculationByFactualWeight        bool
+		CanAfterpaymentOnGoodsCost        bool
+		CanCreditDocuments                bool
+		CanEWTransporter                  bool
+		CanForwardingService              bool
+		CanNonCashPayment                 bool
+		CanPayTheThirdPerson              bool
+		CanSameDayDelivery                bool
+		CanSameDayDeliveryStandart        bool
+		CanSentFromPostomat               bool
+		CanSignedDocuments                bool
+		CarCall                           bool
+		CreditDocuments                   bool
+		CustomerReturn                    bool
+		DayCustomerReturn                 bool
+		DebtorParams                      []DebtorParams `xml:"debtorParams>item"`
+		DeliveryByHand                    bool
+		DescentFromFloor                  bool
+		FillingWarranty                   bool
+		HaveMoneyWallets                  bool
+		HideDeliveryCost                  bool
+		InternationalDelivery             bool
+		InternationalDeliveryServiceType  bool
+		LoyaltyProgram                    bool
+		MainCounterparty                  bool
+		PickupService                     bool
+		PrintMarkingAllowedTypes          Vbf
+		SecurePayment                     bool
+		Services                          bool
+		ShowDeliveryByHand                bool
+		SignedDocuments                   bool
+		TransferPricingConditions         bool
 	}
 )
 
@@ -133,13 +133,13 @@ type (
 // Метод «getCounterpartyOptions», працює в моделі «Counterparty», цей метод використовується для отримання параметрів
 // контрагента відправника в розрізі можливостей замовлення додаткових послуг, з розділу: «Формування запиту на створення
 // ЕН із додатковими послугами» Замовити посслуги можливо через особистого менеджера.
-func (c Client) GetCounterpartyOptions(ref Ref) (Response[CounterpartyOptions], error) {
-	return request[CounterpartyOptions](c, CounterpartyModel, "getCounterpartyOptions", ref)
+func (c *Client) GetCounterpartyOptions(ref Ref) (*Response[CounterpartyOptions], error) {
+	return RawRequest[CounterpartyOptions](c, CounterpartyModel, "getCounterpartyOptions", ref)
 }
 
 type CounterpartyContactPersonRequest struct {
-	Ref  string `json:"Ref"`
-	Page int    `json:"Page"`
+	Ref  string
+	Page int
 }
 
 // GetCounterpartyContactPersons Завантажити список контактних осіб Контрагента
@@ -152,13 +152,13 @@ type CounterpartyContactPersonRequest struct {
 // Копію довідника необхідно зберігати на стороні клієнта та підтримувати його в актуальному стані.
 //
 // Рекомендовано проводити оновлення довідників раз на день.
-func (c Client) GetCounterpartyContactPersons(req CounterpartyContactPersonRequest) (Response[ContactPerson], error) {
-	return request[ContactPerson](c, CounterpartyModel, "getCounterpartyContactPersons", req)
+func (c *Client) GetCounterpartyContactPersons(req CounterpartyContactPersonRequest) (*Response[ContactPerson], error) {
+	return RawRequest[ContactPerson](c, CounterpartyModel, "getCounterpartyContactPersons", req)
 }
 
 type CounterpartiesRequest struct {
-	CounterpartyProperty string `json:"CounterpartyProperty"`
-	Page                 int    `json:"Page"`
+	CounterpartyProperty string
+	Page                 int
 }
 
 // GetCounterparties Завантажити список контрагентів відправників / одержувачів / третя особа
@@ -173,6 +173,6 @@ type CounterpartiesRequest struct {
 // Копію довідника необхідно зберігати на сторні клієнта та підтримувати його в актуальному стані.
 //
 // Рекомендовано проводити оновлення довідників раз на день.
-func (c Client) GetCounterparties(req CounterpartiesRequest) (Response[Counterparty], error) {
-	return request[Counterparty](c, CounterpartyModel, "getCounterparties", req)
+func (c *Client) GetCounterparties(req CounterpartiesRequest) (*Response[Counterparty], error) {
+	return RawRequest[Counterparty](c, CounterpartyModel, "getCounterparties", req)
 }

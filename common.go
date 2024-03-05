@@ -2,14 +2,14 @@ package novapost
 
 type (
 	TimeIntervalRequest struct {
-		RecipientCityRef string `json:"RecipientCityRef"`
-		DateTime         string `json:"DateTime"`
+		RecipientCityRef string
+		DateTime         string
 	}
 
 	TimeInterval struct {
-		Number string `json:"Number"`
-		Start  string `json:"Start"`
-		End    string `json:"End"`
+		Number string
+		Start  string
+		End    string
 	}
 )
 
@@ -17,16 +17,16 @@ type (
 //
 // Метод «getTimeIntervals», працює в моделі «Common», цей метод необхідний для отримання списку часових інтервалів (для
 // замовлення послуги «Часові інтервали»). Для оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetTimeIntervals(req TimeIntervalRequest) (Response[TimeInterval], error) {
-	return request[TimeInterval](c, CommonModel, "getTimeIntervals", req)
+func (c *Client) GetTimeIntervals(req TimeIntervalRequest) (*Response[TimeInterval], error) {
+	return RawRequest[TimeInterval](c, CommonModel, "getTimeIntervals", req)
 }
 
 // GetCargoTypes Види вантажу
 //
 // Метод «getCargoTypes», працює в моделі «Common», цей метод необхідний для завантаження списку типів вантажу
 // українською мовою. Для оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetCargoTypes() (Response[RefDescription], error) {
-	return request[RefDescription](c, CommonModel, "getCargoTypes", nil)
+func (c *Client) GetCargoTypes() (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CommonModel, "getCargoTypes", nil)
 }
 
 // GetBackwardDeliveryCargoTypes Види зворотної доставки вантажу
@@ -34,22 +34,22 @@ func (c Client) GetCargoTypes() (Response[RefDescription], error) {
 // Метод «getBackwardDeliveryCargoTypes», працює в моделі «Common», цей метод необхідний для відображення списку видів
 // зворотної доставки вантажу українською та російською мовами. Для оновлення даних, довідник потрібно завантажувати
 // один раз на місяць.
-func (c Client) GetBackwardDeliveryCargoTypes() (Response[RefDescription], error) {
-	return request[RefDescription](c, CommonModel, "getBackwardDeliveryCargoTypes", nil)
+func (c *Client) GetBackwardDeliveryCargoTypes() (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CommonModel, "getBackwardDeliveryCargoTypes", nil)
 }
 
 type Pallet struct {
-	Ref         string `json:"Ref"`
-	Description string `json:"Description"`
-	Weight      string `json:"Weight"`
+	Ref         string
+	Description string
+	Weight      float64
 }
 
 // GetPalletsList Види палет
 //
 // Метод «getPalletsList», працює в моделі «Common», цей метод необхідний для отримання списку видів палет. Для
 // оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetPalletsList() (Response[Pallet], error) {
-	return request[Pallet](c, CommonModel, "getPalletsList", nil)
+func (c *Client) GetPalletsList() (*Response[Pallet], error) {
+	return RawRequest[Pallet](c, CommonModel, "getPalletsList", nil)
 }
 
 // GetTypesOfPayersForRedelivery Види платників зворотної доставки
@@ -58,28 +58,28 @@ func (c Client) GetPalletsList() (Response[Pallet], error) {
 // платників послуги зворотної доставки українською та англійською мовами: Sender, Recipient.
 //
 // Для оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetTypesOfPayersForRedelivery() (Response[RefDescription], error) {
-	return request[RefDescription](c, CommonModel, "getTypesOfPayersForRedelivery", nil)
+func (c *Client) GetTypesOfPayersForRedelivery() (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CommonModel, "getTypesOfPayersForRedelivery", nil)
 }
 
 type (
 	PackRequest struct {
-		Lengthstring           string `json:"Lengthstring"`
-		Widthstring            string `json:"Widthstring"`
-		Heightstring           string `json:"Heightstring"`
-		VolumetricWeightstring string `json:"VolumetricWeightstring"`
-		TypeOfPackingstring    string `json:"TypeOfPackingstring"`
+		Length           float64 `xml:"Lengthstring" json:"Lengthstring"`
+		Width            float64 `xml:"Widthstring" json:"Widthstring"`
+		Height           float64 `xml:"Heightstring" json:"Heightstring"`
+		VolumetricWeight float64 `xml:"VolumetricWeightstring" json:"VolumetricWeightstring"`
+		TypeOfPacking    string  `xml:"TypeOfPackingstring" json:"TypeOfPackingstring"`
 	}
 
 	Pack struct {
-		Ref               string `json:"Ref"`
-		Description       string `json:"Description"`
-		Length            string `json:"Length"`
-		Width             string `json:"Width"`
-		Height            string `json:"Height"`
-		VolumetricWeight  string `json:"VolumetricWeight"`
-		TypeOfPacking     string `json:"TypeOfPacking"`
-		PackagingForPlace string `json:"PackagingForPlace"`
+		Ref               string
+		Description       string
+		Length            float64
+		Width             float64
+		Height            float64
+		VolumetricWeight  float64
+		TypeOfPacking     string
+		PackagingForPlace bool
 	}
 )
 
@@ -87,15 +87,15 @@ type (
 //
 // Метод «getPackList», працює в моделі «Common», цей метод необхідний для завантаження видів упаковки вантажу
 // українською або російською мовами. Для оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetPackList(req PackRequest) (Response[Pack], error) {
-	return request[Pack](c, CommonModel, "getPackList", req)
+func (c *Client) GetPackList(req PackRequest) (*Response[Pack], error) {
+	return RawRequest[Pack](c, CommonModel, "getPackList", req)
 }
 
 type TireWheel struct {
-	Ref             string `json:"Ref"`
-	Description     string `json:"Description"`
-	Weight          string `json:"Weight"`
-	DescriptionType string `json:"DescriptionType"`
+	Ref             string
+	Description     string
+	Weight          float64
+	DescriptionType string
 }
 
 // GetTiresWheelsList Види шин і дисків
@@ -106,13 +106,14 @@ type TireWheel struct {
 // Необхідно зберігати копію довідників на стороні клієнта та підтримувати її в актуальному стані.
 //
 // Рекомендується проводити оновлення довідників раз на місяць.
-func (c Client) GetTiresWheelsList() (Response[TireWheel], error) {
-	return request[TireWheel](c, CommonModel, "getTiresWheelsList", nil)
+func (c *Client) GetTiresWheelsList() (*Response[TireWheel], error) {
+	return RawRequest[TireWheel](c, CommonModel, "getTiresWheelsList", nil)
 }
 
 type CargoDescriptionRequest struct {
-	FindByString string `json:"FindByString"`
-	Page         int    `json:"Page"`
+	FindByString string
+	Page         int
+	Limit        int
 }
 
 // GetCargoDescriptionList Описи вантажу
@@ -123,14 +124,14 @@ type CargoDescriptionRequest struct {
 // Необхідно зберігати копію довідників на стороні клієнта та підтримувати її в актуальному стані.
 //
 // Рекомендується проводити оновлення довідників раз на місяць.
-func (c Client) GetCargoDescriptionList(req CargoDescriptionRequest) (Response[RefDescription], error) {
-	return request[RefDescription](c, CommonModel, "getCargoDescriptionList", req)
+func (c *Client) GetCargoDescriptionList(req CargoDescriptionRequest) (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CommonModel, "getCargoDescriptionList", req)
 }
 
 type MessageCodeText struct {
-	MessageCode        string `json:"MessageCode"`
-	MessageText        string `json:"MessageText"`
-	MessageDescription string `json:"MessageDescriptionUA"`
+	MessageCode        string
+	MessageText        string
+	MessageDescription string `xml:"MessageDescriptionUA" json:"MessageDescriptionUA"`
 }
 
 // GetMessageCodeText Перелік помилок
@@ -141,8 +142,8 @@ type MessageCodeText struct {
 // Метод постійно поповнюється новим описом трьома мовами.
 //
 // Для оновлення даних, довідник потрібно завантажувати один раз на місяць.
-func (c Client) GetMessageCodeText() (Response[MessageCodeText], error) {
-	return request[MessageCodeText](c, CommonGeneralModel, "getMessageCodeText", nil)
+func (c *Client) GetMessageCodeText() (*Response[MessageCodeText], error) {
+	return RawRequest[MessageCodeText](c, CommonGeneralModel, "getMessageCodeText", nil)
 }
 
 // GetServiceTypes Технології доставки
@@ -153,14 +154,14 @@ func (c Client) GetMessageCodeText() (Response[MessageCodeText], error) {
 // Необхідно зберігати копію довідників на стороні клієнта та підтримувати її в актуальному стані.
 //
 // Рекомендується проводити оновлення довідників раз на місяць.
-func (c Client) GetServiceTypes() (Response[RefDescription], error) {
-	return request[RefDescription](c, CommonModel, "getServiceTypes", nil)
+func (c *Client) GetServiceTypes() (*Response[RefDescription], error) {
+	return RawRequest[RefDescription](c, CommonModel, "getServiceTypes", nil)
 }
 
 type OwnershipForm struct {
-	Ref         string `json:"Ref"`
-	Description string `json:"Description"`
-	FullName    string `json:"FullName"`
+	Ref         string
+	Description string
+	FullName    string
 }
 
 // GetOwnershipFormsList Форми власності
@@ -171,6 +172,6 @@ type OwnershipForm struct {
 // Необхідно зберігати копію довідників на стороні клієнта та підтримувати її в актуальному стані.
 //
 // Рекомендується проводити оновлення довідників раз на місяць.
-func (c Client) GetOwnershipFormsList() (Response[OwnershipForm], error) {
-	return request[OwnershipForm](c, CommonModel, "getOwnershipFormsList", nil)
+func (c *Client) GetOwnershipFormsList() (*Response[OwnershipForm], error) {
+	return RawRequest[OwnershipForm](c, CommonModel, "getOwnershipFormsList", nil)
 }
