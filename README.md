@@ -42,8 +42,8 @@ func main() {
 }
 ```
 
-You can also customize your client by passing options to it. Note, however, that none of them are required, with
-client defaulting to JSON and no timeout.
+You can also customize your client by passing options to it. Note, however, that none of them are required, with client
+defaulting to XML and a new `http.Client` instance.
 
 ```go
 c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"),
