@@ -75,13 +75,11 @@ type customProps struct {
 	Value string
 }
 
-type customResponse struct {
-    Data []struct {
-        Foo string
-    } `xml:"data->item"`
+type responseData struct {
+    Foo string
 }
 
-res, err := np.RawRequest[customResponse](c, "Model", "method", customProps{Value: "foo"}))
+res, err := np.RawRequest[responseData](c, "Model", "method", customProps{Value: "foo"}))
 
 for _, m := range res.Data {
 	fmt.Println(m.Foo)
