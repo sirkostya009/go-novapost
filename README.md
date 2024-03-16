@@ -2,7 +2,7 @@
 
 A simple library-wrapper for NovaPost API.
 
-[![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost) ![Test & Build](https://github.com/sirkostya009/go-novapost/workflows/Build%20&%20Test/badge.svg)
+[![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost) [![Build & Test](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml/badge.svg)](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml)
 
 ## Idea
 
