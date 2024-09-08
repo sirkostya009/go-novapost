@@ -16,15 +16,15 @@ type (
 		CityRecipient       string
 		Weight              float64
 		ServiceType         string
-		Cost                int
 		CargoType           string
-		SeatsAmount         int
-		RedeliveryCalculate RedeliveryCalculate
-		PackCount           int
 		PackRef             string
-		Amount              int
 		CargoDetails        []CargoDetail `xml:"CargoDetails>item"`
 		CargoDescription    string
+		RedeliveryCalculate RedeliveryCalculate
+		Amount              int
+		PackCount           int
+		Cost                int
+		SeatsAmount         int
 	}
 
 	TimezoneInfo struct {
@@ -36,8 +36,8 @@ type (
 		AssessedCost   float64
 		Cost           float64
 		CostRedelivery float64
-		TimezoneInfo   TimezoneInfo
 		CostPack       float64
+		TimezoneInfo   TimezoneInfo
 	}
 )
 
@@ -61,8 +61,8 @@ type (
 
 	DeliveryDate struct {
 		Date         string `json:"date" xml:"date"`
-		TimezoneType int    `json:"timezone_type" xml:"timezone_type"`
 		Timezone     string `json:"timezone" xml:"timezone"`
+		TimezoneType int    `json:"timezone_type" xml:"timezone_type"`
 	}
 
 	DocumentDeliveryDate struct {
@@ -84,10 +84,10 @@ func (c *Client) GetDocumentDeliveryDate(req DocumentDeliveryDateRequest) (*Resp
 type (
 	InternetDocument struct {
 		Ref                   string
-		CostOnSite            int
 		EstimatedDeliveryDate string
 		IntDocNumber          string
 		TypeDocument          string
+		CostOnSite            int
 	}
 
 	Services struct {
@@ -121,7 +121,6 @@ type (
 		VolumeGeneral           float64
 		Weight                  float64
 		ServiceType             string
-		SeatsAmount             int
 		Description             string
 		Cost                    float64
 		CitySender              string
@@ -135,6 +134,7 @@ type (
 		ContactRecipient        string
 		RecipientsPhone         string
 		RedBoxBarcode           string
+		SeatsAmount             int
 		NewAddress              int
 		BackwardDeliveryData    []BackwardDeliveryData `xml:"BackwardDeliveryData>item"`
 		OptionsSeat             []OptionSeat           `xml:"OptionsSeat>item"`
@@ -188,10 +188,10 @@ type (
 	DocumentListRequest struct {
 		DateTimeFrom    string
 		DateTimeTo      string
-		Page            int
-		GetFullList     int
 		DateTime        string
 		RedeliveryMoney int
+		Page            int
+		GetFullList     int
 	}
 
 	Document struct {
@@ -201,7 +201,6 @@ type (
 		RecipientDateTime       string
 		EWDateCreated           string
 		Weight                  float64
-		SeatsAmount             int
 		IntDocNumber            string
 		Cost                    float64
 		CitySender              string
@@ -214,8 +213,9 @@ type (
 		AfterPaymentOnGoodsCost int `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost"`
 		PackingNumber           int
 		RejectionReason         string
-		StateId                 int
 		StateName               string
+		StateId                 int
+		SeatsAmount             int
 	}
 )
 
@@ -262,7 +262,6 @@ type (
 		DateTime                string
 		PreferredDeliveryDate   string
 		Weight                  float64
-		SeatsAmount             int
 		IntDocNumber            string
 		Cost                    float64
 		CitySender              string
@@ -275,6 +274,7 @@ type (
 		PaymentMethod           string
 		AfterPaymentOnGoodsCost float64 `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost"`
 		PackingNumber           int
+		SeatsAmount             int
 	}
 )
 

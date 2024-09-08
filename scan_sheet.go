@@ -60,13 +60,13 @@ type (
 		Ref              string
 		Number           string
 		DateTime         string
-		Count            int
 		CitySenderRef    string
 		CitySender       string
 		SenderAddressRef string
 		SenderAddress    string
 		SenderRef        string
 		Sender           string
+		Count            int
 		Printed          bool
 	}
 )

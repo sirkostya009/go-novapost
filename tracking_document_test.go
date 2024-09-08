@@ -1,13 +1,13 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 func TestGetStatusDocuments(t *testing.T) {
-	documents, err := c.GetStatusDocuments(novapost.Documents{
-		Documents: []novapost.StatusDocumentRequest{
+	documents, err := c.GetStatusDocuments(Documents{
+		Documents: []StatusDocumentRequest{
 			{},
 		},
 	})

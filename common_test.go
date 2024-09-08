@@ -1,12 +1,12 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 func TestGetTimeIntervals(t *testing.T) {
-	intervals, err := c.GetTimeIntervals(novapost.TimeIntervalRequest{
+	intervals, err := c.GetTimeIntervals(TimeIntervalRequest{
 		DateTime:         "01.01.2026",
 		RecipientCityRef: KyivCityRef,
 	})
@@ -64,7 +64,7 @@ func TestGetTypesOfPayersForRedelivery(t *testing.T) {
 }
 
 func TestGetPackList(t *testing.T) {
-	packs, err := c.GetPackList(novapost.PackRequest{
+	packs, err := c.GetPackList(PackRequest{
 		Length:           10,
 		Width:            2,
 		Height:           15,
@@ -91,7 +91,7 @@ func TestGetTiresWheelsList(t *testing.T) {
 }
 
 func TestGetCargoDescriptionList(t *testing.T) {
-	cargoDescriptions, err := c.GetCargoDescriptionList(novapost.CargoDescriptionRequest{
+	cargoDescriptions, err := c.GetCargoDescriptionList(CargoDescriptionRequest{
 		FindByString: "Вантаж",
 		Page:         1,
 	})

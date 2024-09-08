@@ -11,12 +11,7 @@ type (
 	}
 
 	StatusDocument struct {
-		PossibilityCreateReturn              bool
-		PossibilityCreateRefusal             bool
-		PossibilityChangeEW                  bool
-		PossibilityCreateRedirecting         bool
 		Number                               string
-		Redelivery                           bool
 		RedeliverySum                        float64
 		RedeliveryNum                        string
 		RedeliveryPayer                      string
@@ -66,14 +61,12 @@ type (
 		AmountToPay                          float64
 		AmountPaid                           float64
 		Status                               string
-		StatusCode                           int
 		RefEW                                string
 		BackwardDeliverySubTypesActions      string
 		BackwardDeliverySubTypesServices     string
 		UndeliveryReasons                    string
 		DatePayedKeeping                     string
 		InternationalDeliveryType            string
-		SeatsAmount                          int
 		CardMaskedNumber                     string
 		ExpressWaybillPaymentStatus          string
 		ExpressWaybillAmountToPay            float64
@@ -106,18 +99,25 @@ type (
 		WarehouseSenderAddress               string
 		AviaDelivery                         string
 		BarcodeRedBox                        string
-		CargoReturnRefusal                   bool
+		LoyaltyCardRecipient                 string
+		StatusCode                           int
+		SeatsAmount                          int
 		DaysStorageCargo                     string
 		Packaging                            []any `xml:"Packaging>item"`
 		PartialReturnGoods                   []any `xml:"PartialReturnGoods>item"`
+		StoragePrice                         float64
+		StorageAmount                        int
+		FreeShipping                         bool
+		CargoReturnRefusal                   bool
+		PossibilityCreateReturn              bool
+		PossibilityCreateRefusal             bool
+		PossibilityChangeEW                  bool
+		PossibilityCreateRedirecting         bool
+		Redelivery                           bool
 		SecurePayment                        bool
 		PossibilityChangeCash2Card           bool
 		PossibilityChangeDeliveryIntervals   bool
 		PossibilityTermExtensio              bool
-		StorageAmount                        int
-		StoragePrice                         float64
-		FreeShipping                         bool
-		LoyaltyCardRecipient                 string
 	}
 )
 

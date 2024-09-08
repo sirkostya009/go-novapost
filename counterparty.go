@@ -79,9 +79,9 @@ func (c *Client) GetCounterpartyAddresses(req CounterpartyAddressRequest) (*Resp
 type (
 	DebtorParams struct {
 		AgreementId   int
+		BlockedStatus int
 		PaymTermId    string
 		PastDueDebts  float64
-		BlockedStatus int
 	}
 
 	Vbf struct {
@@ -89,6 +89,8 @@ type (
 	}
 
 	CounterpartyOptions struct {
+		DebtorParams                      []DebtorParams `xml:"debtorParams>item"`
+		PrintMarkingAllowedTypes          Vbf
 		AddressDocumentDelivery           bool
 		AfterpaymentType                  bool
 		BackwardDeliverySubtypesDocuments bool
@@ -108,7 +110,6 @@ type (
 		CreditDocuments                   bool
 		CustomerReturn                    bool
 		DayCustomerReturn                 bool
-		DebtorParams                      []DebtorParams `xml:"debtorParams>item"`
 		DeliveryByHand                    bool
 		DescentFromFloor                  bool
 		FillingWarranty                   bool
@@ -119,7 +120,6 @@ type (
 		LoyaltyProgram                    bool
 		MainCounterparty                  bool
 		PickupService                     bool
-		PrintMarkingAllowedTypes          Vbf
 		SecurePayment                     bool
 		Services                          bool
 		ShowDeliveryByHand                bool

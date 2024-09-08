@@ -1,12 +1,12 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 func TestCheckPossibilityCreateReturn(t *testing.T) {
-	possibility, err := c.CheckPossibilityCreateReturn(novapost.Number{
+	possibility, err := c.CheckPossibilityCreateReturn(Number{
 		Number: "00000000000000",
 	})
 	if err != nil {
@@ -30,7 +30,7 @@ func TestGetReturnReasons(t *testing.T) {
 }
 
 func TestGetReturnReasonsSubtypes(t *testing.T) {
-	reasons, err := c.GetReturnReasonSubtypes(novapost.ReasonRef{
+	reasons, err := c.GetReturnReasonSubtypes(ReasonRef{
 		ReasonRef: "00000000-0000-0000-0000-000000000000",
 	})
 	if err != nil {
@@ -43,7 +43,7 @@ func TestGetReturnReasonsSubtypes(t *testing.T) {
 }
 
 func TestGetReturnOrdersList(t *testing.T) {
-	returnOrders, err := c.GetReturnOrdersList(novapost.ReturnOrderRequest{
+	returnOrders, err := c.GetReturnOrdersList(ReturnOrderRequest{
 		Number:    "102-00003168",
 		Ref:       "00000000-0000-0000-0000-000000000000",
 		BeginDate: "12/10/15 10:33",
@@ -61,7 +61,7 @@ func TestGetReturnOrdersList(t *testing.T) {
 }
 
 func TestDeleteAdditionalService(t *testing.T) {
-	additionalService, err := c.DeleteReturnOrder(novapost.Ref{
+	additionalService, err := c.DeleteReturnOrder(Ref{
 		Ref: "00000000-0000-0000-0000-000000000000",
 	})
 	if err != nil {
@@ -74,7 +74,7 @@ func TestDeleteAdditionalService(t *testing.T) {
 }
 
 func TestCheckPossibilityChangeEW(t *testing.T) {
-	possibility, err := c.CheckPossibilityChangeEW(novapost.IntDocNumber{
+	possibility, err := c.CheckPossibilityChangeEW(IntDocNumber{
 		IntDocNumber: "00000000000000",
 	})
 	if err != nil {
@@ -87,7 +87,7 @@ func TestCheckPossibilityChangeEW(t *testing.T) {
 }
 
 func TestGetChangeEWOrdersList(t *testing.T) {
-	orders, err := c.GetChangeEWOrdersList(novapost.ChangeEWRequest{
+	orders, err := c.GetChangeEWOrdersList(ChangeEWRequest{
 		Number:    "00000000000000",
 		Ref:       "00000000-0000-0000-0000-000000000000",
 		BeginDate: "12/10/15 10:33",
@@ -105,7 +105,7 @@ func TestGetChangeEWOrdersList(t *testing.T) {
 }
 
 func TestCheckPossibilityForRedirecting(t *testing.T) {
-	possibility, err := c.CheckPossibilityForRedirecting(novapost.Number{
+	possibility, err := c.CheckPossibilityForRedirecting(Number{
 		Number: "00000000000000",
 	})
 	if err != nil {
@@ -118,7 +118,7 @@ func TestCheckPossibilityForRedirecting(t *testing.T) {
 }
 
 func TestGetRedirectionOrdersList(t *testing.T) {
-	orders, err := c.GetRedirectionOrdersList(novapost.RedirectionRequest{
+	orders, err := c.GetRedirectionOrdersList(RedirectionRequest{
 		Number:    "00000000000000",
 		Ref:       "00000000-0000-0000-0000-000000000000",
 		BeginDate: "12/10/15 10:33",

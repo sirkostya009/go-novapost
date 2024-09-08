@@ -1,14 +1,14 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 const CounterpartyRef = "e718a680-4b3a-11e4-ab6d-005056801329"
 
 func TestGetCounterpartyAddresses(t *testing.T) {
-	addresses, err := c.GetCounterpartyAddresses(novapost.CounterpartyAddressRequest{
+	addresses, err := c.GetCounterpartyAddresses(CounterpartyAddressRequest{
 		Ref:                  CounterpartyRef,
 		CounterpartyProperty: "Sender",
 	})
@@ -22,7 +22,7 @@ func TestGetCounterpartyAddresses(t *testing.T) {
 }
 
 func TestGetCounterpartyOptions(t *testing.T) {
-	options, err := c.GetCounterpartyOptions(novapost.Ref{
+	options, err := c.GetCounterpartyOptions(Ref{
 		Ref: CounterpartyRef,
 	})
 	if err != nil {
@@ -35,7 +35,7 @@ func TestGetCounterpartyOptions(t *testing.T) {
 }
 
 func TestGetCounterpartyContactPersons(t *testing.T) {
-	contactPersons, err := c.GetCounterpartyContactPersons(novapost.CounterpartyContactPersonRequest{
+	contactPersons, err := c.GetCounterpartyContactPersons(CounterpartyContactPersonRequest{
 		Ref:  CounterpartyRef,
 		Page: 1,
 	})
@@ -49,7 +49,7 @@ func TestGetCounterpartyContactPersons(t *testing.T) {
 }
 
 func TestGetCounterparties(t *testing.T) {
-	counterparties, err := c.GetCounterparties(novapost.CounterpartiesRequest{
+	counterparties, err := c.GetCounterparties(CounterpartiesRequest{
 		CounterpartyProperty: "Sender",
 		Page:                 1,
 	})

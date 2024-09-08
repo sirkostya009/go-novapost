@@ -1,12 +1,12 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 func TestInsertDocuments(t *testing.T) {
-	documents, err := c.InsertDocuments(novapost.InsertDocumentsRequest{
+	documents, err := c.InsertDocuments(InsertDocumentsRequest{
 		Ref:          "00000000-0000-0000-0000-000000000000",
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
 		Date:         "01.01.2022",
@@ -21,7 +21,7 @@ func TestInsertDocuments(t *testing.T) {
 }
 
 func TestGetScanSheet(t *testing.T) {
-	scanSheet, err := c.GetScanSheet(novapost.ScanSheetRequest{
+	scanSheet, err := c.GetScanSheet(ScanSheetRequest{
 		Ref:             "00000000-0000-0000-0000-000000000000",
 		CounterpartyRef: "00000000-0000-0000-0000-000000000000",
 	})
@@ -46,7 +46,7 @@ func TestGetScanSheetList(t *testing.T) {
 }
 
 func TestDeleteScanSheet(t *testing.T) {
-	scanSheet, err := c.DeleteScanSheet(novapost.ScanSheetRefs{
+	scanSheet, err := c.DeleteScanSheet(ScanSheetRefs{
 		ScanSheetRefs: []string{"00000000-0000-0000-0000-000000000000"},
 	})
 	if err != nil {
@@ -59,7 +59,7 @@ func TestDeleteScanSheet(t *testing.T) {
 }
 
 func TestRemoveDocuments(t *testing.T) {
-	documents, err := c.RemoveDocuments(novapost.RemoveDocumentsRequest{
+	documents, err := c.RemoveDocuments(RemoveDocumentsRequest{
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
 		Ref:          "00000000-0000-0000-0000-000000000000",
 	})

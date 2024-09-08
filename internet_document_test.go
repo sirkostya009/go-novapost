@@ -1,27 +1,27 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"testing"
 )
 
 func TestGetDocumentPrice(t *testing.T) {
-	prices, err := c.GetDocumentPrice(novapost.DocumentPriceRequest{
+	prices, err := c.GetDocumentPrice(DocumentPriceRequest{
 		CitySender:    "",
 		CityRecipient: "",
 		Weight:        0,
-		ServiceType:   novapost.CargoType,
+		ServiceType:   CargoType,
 		Cost:          0,
 		CargoType:     "",
 		SeatsAmount:   0,
-		RedeliveryCalculate: novapost.RedeliveryCalculate{
-			CargoType: novapost.CargoType,
+		RedeliveryCalculate: RedeliveryCalculate{
+			CargoType: CargoType,
 			Amount:    0,
 		},
 		PackCount: 0,
 		PackRef:   "",
 		Amount:    0,
-		CargoDetails: []novapost.CargoDetail{
+		CargoDetails: []CargoDetail{
 			{},
 		},
 		CargoDescription: "",
@@ -36,7 +36,7 @@ func TestGetDocumentPrice(t *testing.T) {
 }
 
 func TestGetDocumentDeliveryDate(t *testing.T) {
-	dates, err := c.GetDocumentDeliveryDate(novapost.DocumentDeliveryDateRequest{
+	dates, err := c.GetDocumentDeliveryDate(DocumentDeliveryDateRequest{
 		ServiceType:   "WarehouseWarehouse",
 		CitySender:    KyivCityRef,
 		CityRecipient: KyivCityRef,
@@ -51,7 +51,7 @@ func TestGetDocumentDeliveryDate(t *testing.T) {
 }
 
 func TestGetDocumentList(t *testing.T) {
-	documents, err := c.GetDocumentList(novapost.DocumentListRequest{
+	documents, err := c.GetDocumentList(DocumentListRequest{
 		DateTime: "01.01.2026",
 	})
 	if err != nil {
@@ -64,7 +64,7 @@ func TestGetDocumentList(t *testing.T) {
 }
 
 func TestGenerateReport(t *testing.T) {
-	report, err := c.GenerateReport(novapost.ReportRequest{
+	report, err := c.GenerateReport(ReportRequest{
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
 		DateTime:     "01.01.2026",
 		Type:         "csv",

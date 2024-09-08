@@ -1,7 +1,7 @@
-package tests
+package novapost_test
 
 import (
-	"github.com/sirkostya009/go-novapost"
+	. "github.com/sirkostya009/go-novapost"
 	"os"
 	"testing"
 )
@@ -11,10 +11,10 @@ const (
 	KyivCityRef       = "8d5a980d-391c-11dd-90d9-001a92567626"
 )
 
-var c = novapost.NewClient(os.Getenv("NOVA_POST_API_KEY"))
+var c = NewClient(os.Getenv("NOVA_POST_API_KEY"))
 
 func TestSearchSettlements(t *testing.T) {
-	settlements, err := c.SearchSettlements(novapost.SettlementRequest{
+	settlements, err := c.SearchSettlements(SettlementRequest{
 		CityName: "Київ",
 		Limit:    150,
 		Page:     1,
@@ -29,7 +29,7 @@ func TestSearchSettlements(t *testing.T) {
 }
 
 func TestSearchSettlementStreets(t *testing.T) {
-	streets, err := c.SearchSettlementStreets(novapost.SettlementStreetRequest{
+	streets, err := c.SearchSettlementStreets(SettlementStreetRequest{
 		StreetName:    "Хрещатик",
 		SettlementRef: KyivSettlementRef,
 		Page:          1,
@@ -44,7 +44,7 @@ func TestSearchSettlementStreets(t *testing.T) {
 }
 
 func TestGetSettlements(t *testing.T) {
-	settlements, err := c.GetSettlements(novapost.GetSettlementsRequest{
+	settlements, err := c.GetSettlements(GetSettlementsRequest{
 		FindByString: "Київ",
 		Limit:        150,
 		Page:         1,
@@ -59,7 +59,7 @@ func TestGetSettlements(t *testing.T) {
 }
 
 func TestGetCities(t *testing.T) {
-	cities, err := c.GetCities(novapost.CityRequest{
+	cities, err := c.GetCities(CityRequest{
 		FindByString: "Київ",
 		Limit:        150,
 		Page:         1,
@@ -85,7 +85,7 @@ func TestGetAreas(t *testing.T) {
 }
 
 func TestGetWarehouses(t *testing.T) {
-	warehouses, err := c.GetWarehouses(novapost.WarehouseRequest{
+	warehouses, err := c.GetWarehouses(WarehouseRequest{
 		CityName: "Київ",
 		Limit:    150,
 		Page:     1,
@@ -111,7 +111,7 @@ func TestGetWarehouseTypes(t *testing.T) {
 }
 
 func TestGetStreet(t *testing.T) {
-	street, err := c.GetStreet(novapost.StreetRequest{
+	street, err := c.GetStreet(StreetRequest{
 		CityRef: KyivCityRef,
 		Limit:   150,
 		Page:    1,
@@ -126,7 +126,7 @@ func TestGetStreet(t *testing.T) {
 }
 
 func TestGetSettlementCountryRegion(t *testing.T) {
-	settlementCountryRegion, err := c.GetSettlementCountryRegion(novapost.AreaRef{
+	settlementCountryRegion, err := c.GetSettlementCountryRegion(AreaRef{
 		AreaRef: "7150813e-9b87-11de-822f-000c2965ae0e",
 	})
 	if err != nil {
@@ -139,7 +139,7 @@ func TestGetSettlementCountryRegion(t *testing.T) {
 }
 
 func TestGetSettlementAreas(t *testing.T) {
-	settlementAreas, err := c.GetSettlementAreas(novapost.Ref{
+	settlementAreas, err := c.GetSettlementAreas(Ref{
 		Ref: KyivSettlementRef,
 	})
 	if err != nil {

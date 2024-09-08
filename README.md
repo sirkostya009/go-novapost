@@ -2,7 +2,8 @@
 
 A simple library-wrapper for NovaPost API.
 
-[![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost) [![Build & Test](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml/badge.svg)](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml)
+[![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost)
+[![Build & Test](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml/badge.svg)](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml)
 
 ## Idea
 
@@ -76,7 +77,7 @@ type customProps struct {
 }
 
 type responseData struct {
-    Foo string
+	Foo string
 }
 
 res, err := np.RawRequest[responseData](c, "Model", "method", customProps{Value: "foo"}))

@@ -10,14 +10,14 @@ type (
 	SettlementAddress struct {
 		Present                string
 		Warehouses             int
+		AddressDeliveryAllowed bool
+		StreetsAvailability    bool
 		MainDescription        string
 		Area                   string
 		Region                 string
 		SettlementTypeCode     string
 		Ref                    string
 		DeliveryCity           string
-		AddressDeliveryAllowed bool
-		StreetsAvailability    bool
 		ParentRegionTypes      string
 		ParentRegionCode       string
 		RegionTypes            string
@@ -122,9 +122,9 @@ type (
 		AreaRef      string
 		Ref          string
 		RegionRef    string
-		Page         int
 		Warehouse    bool
 		FindByString string
+		Page         int
 		Limit        int
 	}
 
@@ -179,14 +179,12 @@ func (c *Client) GetSettlements(req GetSettlementsRequest) (*Response[Settlement
 type (
 	CityRequest struct {
 		Ref          string
-		Page         int
 		FindByString string
+		Page         int
 		Limit        int
 	}
 
 	City struct {
-		Description                string
-		Ref                        string
 		Delivery1                  bool
 		Delivery2                  bool
 		Delivery3                  bool
@@ -194,13 +192,15 @@ type (
 		Delivery5                  bool
 		Delivery6                  bool
 		Delivery7                  bool
-		Area                       string
-		SettlementType             string
 		IsBranch                   bool
 		PreventEntryNewStreetsUser bool
-		CityID                     int
-		SettlementTypeDescription  string
 		SpecialCashCheck           bool
+		CityID                     int
+		Description                string
+		Ref                        string
+		Area                       string
+		SettlementType             string
+		SettlementTypeDescription  string
 		AreaDescription            string
 	}
 )
@@ -239,6 +239,7 @@ type (
 		PostFinance        bool
 		BicycleParking     bool
 		POSTerminal        bool
+		WarehouseId        int
 		FindByString       string
 		CityName           string
 		CityRef            string
@@ -246,7 +247,6 @@ type (
 		Limit              int
 		Language           string
 		TypeOfWarehouseRef string
-		WarehouseId        int
 	}
 
 	SendingLimitationsOnDimensions struct {
@@ -293,6 +293,20 @@ type (
 
 	Warehouse struct {
 		SiteKey                          int
+		WorkInMobileAwis                 bool
+		DenyToSelect                     bool
+		CanGetMoneyTransfer              bool
+		HasMirror                        bool
+		HasFittingRoom                   bool
+		OnlyReceivingParcel              bool
+		PostFinance                      bool
+		BicycleParking                   bool
+		PaymentAccess                    bool
+		POSTerminal                      bool
+		InternationalShipping            bool
+		SelfServiceWorkplacesCount       bool
+		WarehouseForAgent                bool
+		GeneratorEnabled                 bool
 		Description                      string
 		ShortAddress                     string
 		Phone                            string
@@ -308,12 +322,6 @@ type (
 		SettlementTypeDescription        string
 		Longitude                        float64
 		Latitude                         float64
-		PostFinance                      bool
-		BicycleParking                   bool
-		PaymentAccess                    bool
-		POSTerminal                      bool
-		InternationalShipping            bool
-		SelfServiceWorkplacesCount       bool
 		TotalMaxWeightAllowed            float64
 		PlaceMaxWeightAllowed            float64
 		SendingLimitationsOnDimensions   SendingLimitationsOnDimensions
@@ -328,15 +336,7 @@ type (
 		CategoryOfWarehouse              string
 		Direct                           string
 		RegionCity                       string
-		WarehouseForAgent                bool
-		GeneratorEnabled                 bool
 		MaxDeclaredCost                  float64
-		WorkInMobileAwis                 bool
-		DenyToSelect                     bool
-		CanGetMoneyTransfer              bool
-		HasMirror                        bool
-		HasFittingRoom                   bool
-		OnlyReceivingParcel              bool
 		PostMachineType                  string
 		PostalCodeUA                     string
 		WarehouseIndex                   string
