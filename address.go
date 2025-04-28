@@ -3,13 +3,13 @@ package novapost
 type (
 	SettlementRequest struct {
 		CityName string
-		Limit    int
-		Page     int
+		Limit    int `json:",string"`
+		Page     int `json:",string"`
 	}
 
 	SettlementAddress struct {
 		Present                string
-		Warehouses             int
+		Warehouses             int `json:",string"`
 		AddressDeliveryAllowed bool
 		StreetsAvailability    bool
 		MainDescription        string
@@ -25,7 +25,7 @@ type (
 	}
 
 	Settlement struct {
-		TotalCount int
+		TotalCount int                 `json:",string"`
 		Addresses  []SettlementAddress `xml:"Addresses>item"`
 	}
 )
@@ -41,7 +41,8 @@ type (
 	SettlementStreetRequest struct {
 		StreetName    string
 		SettlementRef string
-		Page          int
+		Page          int `json:",string,omitempty" xml:",omitempty"`
+		Limit         int `json:",string,omitempty" xml:",omitempty"`
 	}
 
 	Location struct {
@@ -60,7 +61,7 @@ type (
 	}
 
 	SettlementStreet struct {
-		TotalCount string                    `json:"TotalCount"`
+		TotalCount string                    `json:",string"`
 		Addresses  []SettlementStreetAddress `json:"Addresses"`
 	}
 )
@@ -78,7 +79,7 @@ type SaveAddressRequest struct {
 	StreetRef       string
 	BuildingNumber  string
 	Flat            string
-	Note            string
+	Note            string `json:",omitempty" xml:",omitempty"`
 }
 
 // SaveAddress Створити адресу контрагента (відправник / одержувач)
@@ -94,16 +95,17 @@ func (c *Client) SaveAddress(req SaveAddressRequest) (*Response[RefDescription],
 // відправника/отримувача.
 //
 // Редагувати дані контрагента можливо лише з моменту його створення та до моменту створення ІД з даним контаргентом.
+// TODO: replace with Ref
 func (c *Client) DeleteAddress(rd RefDescription) (*Response[RefDescription], error) {
 	return RawRequest[RefDescription](c, AddressModel, "delete", rd)
 }
 
 type UpdateAddressRequest struct {
-	CounterpartyRef string
-	StreetRef       string
-	BuildingNumber  string
-	Flat            string
-	Note            string
+	CounterpartyRef string `json:",omitempty" xml:",omitempty"`
+	StreetRef       string `json:",omitempty" xml:",omitempty"`
+	BuildingNumber  string `json:",omitempty" xml:",omitempty"`
+	Flat            string `json:",omitempty" xml:",omitempty"`
+	Note            string `json:",omitempty" xml:",omitempty"`
 	Ref             string
 }
 
@@ -119,20 +121,20 @@ func (c *Client) UpdateAddress(req UpdateAddressRequest) (*Response[RefDescripti
 
 type (
 	GetSettlementsRequest struct {
-		AreaRef      string
-		Ref          string
-		RegionRef    string
-		Warehouse    bool
-		FindByString string
-		Page         int
-		Limit        int
+		AreaRef      string  `json:",omitempty" xml:",omitempty"`
+		Ref          string  `json:",omitempty" xml:",omitempty"`
+		RegionRef    string  `json:",omitempty" xml:",omitempty"`
+		Warehouse    IntBool `json:",string,omitempty" xml:",omitempty"` // true or false as a string dont work here FIXME needs a fix
+		FindByString string  `json:",omitempty" xml:",omitempty"`
+		Page         int     `json:",string,omitempty" xml:",omitempty"`
+		Limit        int     `json:",string,omitempty" xml:",omitempty"`
 	}
 
 	SettlementGeneral struct {
 		Ref                               string
 		SettlementType                    string
-		Latitude                          float64
-		Longitude                         float64
+		Latitude                          float64 `json:",string"`
+		Longitude                         float64 `json:",string"`
 		Description                       string
 		DescriptionTranslit               string
 		SettlementTypeDescription         string
@@ -146,15 +148,15 @@ type (
 		Index1                            string
 		Index2                            string
 		IndexCOATSU1                      string
-		Delivery1                         bool
-		Delivery2                         bool
-		Delivery3                         bool
-		Delivery4                         bool
-		Delivery5                         bool
-		Delivery6                         bool
-		Delivery7                         bool
-		Warehouse                         bool
-		SpecialCashCheck                  bool
+		Delivery1                         IntBool `json:",string"`
+		Delivery2                         IntBool `json:",string"`
+		Delivery3                         IntBool `json:",string"`
+		Delivery4                         IntBool `json:",string"`
+		Delivery5                         IntBool `json:",string"`
+		Delivery6                         IntBool `json:",string"`
+		Delivery7                         IntBool `json:",string"`
+		Warehouse                         IntBool `json:",string"`
+		SpecialCashCheck                  IntBool `json:",string"`
 	}
 )
 
@@ -178,24 +180,24 @@ func (c *Client) GetSettlements(req GetSettlementsRequest) (*Response[Settlement
 
 type (
 	CityRequest struct {
-		Ref          string
-		FindByString string
-		Page         int
-		Limit        int
+		Ref          string `json:",omitempty" xml:",omitempty"`
+		FindByString string `json:",omitempty" xml:",omitempty"`
+		Page         int    `json:",string,omitempty" xml:",omitempty"`
+		Limit        int    `json:",string,omitempty" xml:",omitempty"`
 	}
 
 	City struct {
-		Delivery1                  bool
-		Delivery2                  bool
-		Delivery3                  bool
-		Delivery4                  bool
-		Delivery5                  bool
-		Delivery6                  bool
-		Delivery7                  bool
-		IsBranch                   bool
-		PreventEntryNewStreetsUser bool
-		SpecialCashCheck           bool
-		CityID                     int
+		Delivery1                  IntBool `json:",string"`
+		Delivery2                  IntBool `json:",string"`
+		Delivery3                  IntBool `json:",string"`
+		Delivery4                  IntBool `json:",string"`
+		Delivery5                  IntBool `json:",string"`
+		Delivery6                  IntBool `json:",string"`
+		Delivery7                  IntBool `json:",string"`
+		IsBranch                   IntBool `json:",string"`
+		PreventEntryNewStreetsUser IntBool `json:",string"`
+		SpecialCashCheck           IntBool `json:",string"`
+		CityID                     int     `json:",string"`
 		Description                string
 		Ref                        string
 		Area                       string
@@ -236,17 +238,17 @@ func (c *Client) GetAreas() (*Response[Area], error) {
 
 type (
 	WarehouseRequest struct {
-		PostFinance        bool
-		BicycleParking     bool
-		POSTerminal        bool
-		WarehouseId        int
-		FindByString       string
-		CityName           string
-		CityRef            string
-		Page               int
-		Limit              int
-		Language           string
-		TypeOfWarehouseRef string
+		PostFinance        IntBool `json:",string,omitempty" xml:",omitempty"`
+		BicycleParking     IntBool `json:",string,omitempty" xml:",omitempty"`
+		POSTerminal        IntBool `json:",string,omitempty" xml:",omitempty"`
+		WarehouseId        int     `json:",string,omitempty" xml:",omitempty"`
+		FindByString       string  `json:",omitempty" xml:",omitempty"`
+		CityName           string  `json:",omitempty" xml:",omitempty"`
+		CityRef            string  `json:",omitempty" xml:",omitempty"`
+		Page               int     `json:",string,omitempty" xml:",omitempty"`
+		Limit              int     `json:",string,omitempty" xml:",omitempty"`
+		Language           string  `json:",omitempty" xml:",omitempty"`
+		TypeOfWarehouseRef string  `json:",omitempty" xml:",omitempty"`
 	}
 
 	SendingLimitationsOnDimensions struct {
@@ -292,21 +294,21 @@ type (
 	}
 
 	Warehouse struct {
-		SiteKey                          int
-		WorkInMobileAwis                 bool
-		DenyToSelect                     bool
-		CanGetMoneyTransfer              bool
-		HasMirror                        bool
-		HasFittingRoom                   bool
-		OnlyReceivingParcel              bool
-		PostFinance                      bool
-		BicycleParking                   bool
-		PaymentAccess                    bool
-		POSTerminal                      bool
-		InternationalShipping            bool
-		SelfServiceWorkplacesCount       bool
-		WarehouseForAgent                bool
-		GeneratorEnabled                 bool
+		SiteKey                          string
+		WorkInMobileAwis                 IntBool `json:",string"`
+		DenyToSelect                     IntBool `json:",string"`
+		CanGetMoneyTransfer              IntBool `json:",string"`
+		HasMirror                        IntBool `json:",string"`
+		HasFittingRoom                   IntBool `json:",string"`
+		OnlyReceivingParcel              IntBool `json:",string"`
+		PostFinance                      IntBool `json:",string"`
+		BicycleParking                   IntBool `json:",string"`
+		PaymentAccess                    IntBool `json:",string"`
+		POSTerminal                      IntBool `json:",string"`
+		InternationalShipping            IntBool `json:",string"`
+		SelfServiceWorkplacesCount       IntBool `json:",string"`
+		WarehouseForAgent                IntBool `json:",string"`
+		GeneratorEnabled                 IntBool `json:",string"`
 		Description                      string
 		ShortAddress                     string
 		Phone                            string
@@ -320,10 +322,10 @@ type (
 		SettlementAreaDescription        string
 		SettlementRegionsDescription     string
 		SettlementTypeDescription        string
-		Longitude                        float64
-		Latitude                         float64
-		TotalMaxWeightAllowed            float64
-		PlaceMaxWeightAllowed            float64
+		Longitude                        float64 `json:",string"`
+		Latitude                         float64 `json:",string"`
+		TotalMaxWeightAllowed            float64 `json:",string"`
+		PlaceMaxWeightAllowed            float64 `json:",string"`
 		SendingLimitationsOnDimensions   SendingLimitationsOnDimensions
 		ReceivingLimitationsOnDimensions ReceivingLimitationsOnDimensions
 		Reception                        Reception
@@ -336,7 +338,7 @@ type (
 		CategoryOfWarehouse              string
 		Direct                           string
 		RegionCity                       string
-		MaxDeclaredCost                  float64
+		MaxDeclaredCost                  float64 `json:",string"`
 		PostMachineType                  string
 		PostalCodeUA                     string
 		WarehouseIndex                   string
@@ -364,8 +366,8 @@ type (
 	StreetRequest struct {
 		CityRef      string
 		FindByString string
-		Page         int
-		Limit        int
+		Page         int `json:",string,omitempty" xml:",omitempty"`
+		Limit        int `json:",string,omitempty" xml:",omitempty"`
 	}
 
 	Street struct {

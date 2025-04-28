@@ -3,7 +3,7 @@ package novapost
 type (
 	TimeIntervalRequest struct {
 		RecipientCityRef string
-		DateTime         string
+		DateTime         string `json:",omitempty" xml:",omitempty"`
 	}
 
 	TimeInterval struct {
@@ -64,11 +64,11 @@ func (c *Client) GetTypesOfPayersForRedelivery() (*Response[RefDescription], err
 
 type (
 	PackRequest struct {
-		Length           float64 `xml:"Lengthstring" json:"Lengthstring"`
-		Width            float64 `xml:"Widthstring" json:"Widthstring"`
-		Height           float64 `xml:"Heightstring" json:"Heightstring"`
-		VolumetricWeight float64 `xml:"VolumetricWeightstring" json:"VolumetricWeightstring"`
-		TypeOfPacking    string  `xml:"TypeOfPackingstring" json:"TypeOfPackingstring"`
+		Length           float64 `xml:"Lengthstring,omitempty" json:"Lengthstring,string,omitempty"`
+		Width            float64 `xml:"Widthstring,omitempty" json:"Widthstring,string,omitempty"`
+		Height           float64 `xml:"Heightstring,omitempty" json:"Heightstring,string,omitempty"`
+		VolumetricWeight float64 `xml:"VolumetricWeightstring,omitempty" json:"VolumetricWeightstring,string,omitempty"`
+		TypeOfPacking    string  `xml:"TypeOfPackingstring,omitempty" json:"TypeOfPackingstring,omitempty"`
 	}
 
 	Pack struct {
@@ -111,9 +111,9 @@ func (c *Client) GetTiresWheelsList() (*Response[TireWheel], error) {
 }
 
 type CargoDescriptionRequest struct {
-	FindByString string
-	Page         int
-	Limit        int
+	FindByString string `json:",omitempty" xml:",omitempty"`
+	Page         int    `json:",string,omitempty" xml:",omitempty"`
+	Limit        int    `json:",string,omitempty" xml:",omitempty"`
 }
 
 // GetCargoDescriptionList Описи вантажу
