@@ -52,7 +52,8 @@ type NewReturnOrderRequest struct {
 	PaymentMethod             string
 	Reason                    string
 	SubtypeReason             string
-	Note                      string
+	OnlyGetPricing            IntBool `json:",string,omitempty" xml:",omitempty"`
+	Note                      string  `json:",omitempty" xml:",omitempty"`
 	OrderType                 string
 	SenderContactName         string
 	SenderPhone               string
@@ -83,8 +84,8 @@ type (
 		Ref       string
 		BeginDate string
 		EndDate   string
-		Page      int
-		Limit     int
+		Page      int `json:",string,omitempty" xml:",omitempty"`
+		Limit     int `json:",string,omitempty" xml:",omitempty"`
 	}
 
 	ReturnOrder struct {
@@ -95,7 +96,7 @@ type (
 		CounterpartyRecipient  string
 		ContactPersonRecipient string
 		AddressRecipient       string
-		DeliveryCost           float64
+		DeliveryCost           float64 `json:",string"`
 		EstimatedDeliveryDate  string
 		ExpressWaybillNumber   string
 		ExpressWaybillStatus   string
@@ -161,12 +162,12 @@ func (c *Client) CheckPossibilityChangeEW(req IntDocNumber) (*Response[Possibili
 
 type (
 	ChangeEWRequest struct {
-		Number    string
-		Ref       string
+		Number    string `json:",omitempty" xml:",omitempty"`
+		Ref       string `json:",omitempty" xml:",omitempty"`
 		BeginDate string
 		EndDate   string
-		Page      int
-		Limit     int
+		Page      int `json:",string"`
+		Limit     int `json:",string"`
 	}
 
 	ChangeEW struct {
@@ -177,7 +178,7 @@ type (
 		DateTime                            string
 		BeforeChangeSenderCounterparty      string
 		AfterChangeChangeSenderCounterparty string
-		Cost                                float64
+		Cost                                float64 `json:",string"`
 		BeforeChangeSenderPhone             string
 		AfterChangeSenderPhone              string
 	}
@@ -216,7 +217,7 @@ type (
 		RecipientName                    string
 		PhoneSender                      string
 		PhoneRecipient                   string
-		DocumentWeight                   float64
+		DocumentWeight                   float64 `json:",string"`
 	}
 )
 
@@ -245,19 +246,19 @@ type (
 		RecipientName         string
 		PhoneRecipient        string
 		PayerType             string
-		DeliveryCost          float64
+		DeliveryCost          float64 `json:",string"`
 		EstimatedDeliveryDate string
 		ExpressWaybillNumber  string
 		ExpressWaybillStatus  string
 	}
 
 	RedirectionRequest struct {
-		Number    string
-		Ref       string
-		BeginDate string
-		EndDate   string
-		Page      int
-		Limit     int
+		Number    string `json:",omitempty" xml:",omitempty"`
+		Ref       string `json:",omitempty" xml:",omitempty"`
+		BeginDate string `json:",omitempty" xml:",omitempty"`
+		EndDate   string `json:",omitempty" xml:",omitempty"`
+		Page      int    `json:",string,omitempty" xml:",omitempty"`
+		Limit     int    `json:",string,omitempty" xml:",omitempty"`
 	}
 )
 

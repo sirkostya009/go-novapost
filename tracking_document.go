@@ -12,7 +12,7 @@ type (
 
 	StatusDocument struct {
 		Number                               string
-		RedeliverySum                        float64
+		RedeliverySum                        float64 `json:",string"`
 		RedeliveryNum                        string
 		RedeliveryPayer                      string
 		OwnerDocumentType                    string
@@ -23,13 +23,13 @@ type (
 		LastTransactionDateTimeGM            string
 		LastAmountTransferGM                 string
 		DateCreated                          string
-		DocumentWeight                       float64
-		FactualWeight                        float64
-		VolumeWeight                         float64
+		DocumentWeight                       float64 `json:",string"`
+		FactualWeight                        float64 `json:",string"`
+		VolumeWeight                         float64 `json:",string"`
 		CheckWeight                          string
 		CheckWeightMethod                    string
-		DocumentCost                         float64
-		CalculatedWeight                     float64
+		DocumentCost                         float64 `json:",string"`
+		CalculatedWeight                     float64 `json:",string"`
 		SumBeforeCheckWeight                 string
 		PayerType                            string
 		RecipientFullName                    string
@@ -58,8 +58,8 @@ type (
 		DateScan                             string
 		PaymentStatus                        string
 		PaymentStatusDate                    string
-		AmountToPay                          float64
-		AmountPaid                           float64
+		AmountToPay                          float64 `json:",string"`
+		AmountPaid                           float64 `json:",string"`
 		Status                               string
 		RefEW                                string
 		BackwardDeliverySubTypesActions      string
@@ -69,7 +69,7 @@ type (
 		InternationalDeliveryType            string
 		CardMaskedNumber                     string
 		ExpressWaybillPaymentStatus          string
-		ExpressWaybillAmountToPay            float64
+		ExpressWaybillAmountToPay            float64 `json:",string"`
 		PhoneSender                          string
 		TrackingUpdateDate                   string
 		WarehouseSender                      string
@@ -82,12 +82,12 @@ type (
 		RefSettlementSender                  string
 		SenderAddress                        string
 		SenderFullNameEW                     string
-		AnnouncedPrice                       float64
+		AnnouncedPrice                       float64 `json:",string"`
 		AdditionalInformationEW              string
 		ActualDeliveryDate                   string
 		PostomatV3CellReservationNumber      string
 		OwnerDocumentNumber                  string
-		LastAmountReceivedCommissionGM       float64
+		LastAmountReceivedCommissionGM       float64 `json:",string"`
 		DeliveryTimeframe                    string
 		CreatedOnTheBasis                    string
 		UndeliveryReasonsDate                string
@@ -100,21 +100,21 @@ type (
 		AviaDelivery                         string
 		BarcodeRedBox                        string
 		LoyaltyCardRecipient                 string
-		StatusCode                           int
-		SeatsAmount                          int
+		StatusCode                           int `json:",string"`
+		SeatsAmount                          int `json:",string"`
 		DaysStorageCargo                     string
-		Packaging                            []any `xml:"Packaging>item"`
-		PartialReturnGoods                   []any `xml:"PartialReturnGoods>item"`
-		StoragePrice                         float64
-		StorageAmount                        int
-		FreeShipping                         bool
-		CargoReturnRefusal                   bool
+		Packaging                            []any   `xml:"Packaging>item"`
+		PartialReturnGoods                   []any   `xml:"PartialReturnGoods>item"`
+		StoragePrice                         float64 `json:",string"`
+		StorageAmount                        int     `json:",string"`
+		FreeShipping                         bool    `json:",string"`
+		CargoReturnRefusal                   bool    `json:",string"`
 		PossibilityCreateReturn              bool
 		PossibilityCreateRefusal             bool
 		PossibilityChangeEW                  bool
 		PossibilityCreateRedirecting         bool
-		Redelivery                           bool
-		SecurePayment                        bool
+		Redelivery                           IntBool `json:",string"`
+		SecurePayment                        bool    `json:",string"`
 		PossibilityChangeCash2Card           bool
 		PossibilityChangeDeliveryIntervals   bool
 		PossibilityTermExtensio              bool

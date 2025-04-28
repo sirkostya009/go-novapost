@@ -6,7 +6,7 @@ type (
 		MiddleName           string
 		LastName             string
 		Phone                string
-		Email                string
+		Email                string `json:",omitempty" xml:",omitempty"`
 		CounterpartyType     string
 		EDRPOU               string
 		CounterpartyProperty string
@@ -78,10 +78,10 @@ func (c *Client) GetCounterpartyAddresses(req CounterpartyAddressRequest) (*Resp
 
 type (
 	DebtorParams struct {
-		AgreementId   int
-		BlockedStatus int
+		AgreementId   int `json:",string"`
+		BlockedStatus int `json:",string"`
 		PaymTermId    string
-		PastDueDebts  float64
+		PastDueDebts  float64 `json:",string"`
 	}
 
 	Vbf struct {
@@ -139,7 +139,7 @@ func (c *Client) GetCounterpartyOptions(ref Ref) (*Response[CounterpartyOptions]
 
 type CounterpartyContactPersonRequest struct {
 	Ref  string
-	Page int
+	Page int `json:",string,omitempty" xml:"omitempty"`
 }
 
 // GetCounterpartyContactPersons Завантажити список контактних осіб Контрагента
@@ -158,7 +158,7 @@ func (c *Client) GetCounterpartyContactPersons(req CounterpartyContactPersonRequ
 
 type CounterpartiesRequest struct {
 	CounterpartyProperty string
-	Page                 int
+	Page                 int`json:",string,omitempty" xml:"omitempty"`
 }
 
 // GetCounterparties Завантажити список контрагентів відправників / одержувачів / третя особа

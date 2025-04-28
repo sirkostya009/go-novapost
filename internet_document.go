@@ -3,28 +3,28 @@ package novapost
 type (
 	RedeliveryCalculate struct {
 		CargoType string
-		Amount    int
+		Amount    int `json:",string"`
 	}
 
 	CargoDetail struct {
 		CargoDescription string
-		Amount           int
+		Amount           int `json:",string"`
 	}
 
 	DocumentPriceRequest struct {
 		CitySender          string
 		CityRecipient       string
-		Weight              float64
+		Weight              float64 `json:",string"`
 		ServiceType         string
 		CargoType           string
-		PackRef             string
-		CargoDetails        []CargoDetail `xml:"CargoDetails>item"`
-		CargoDescription    string
+		PackRef             string        `json:",omitempty" xml:",omitempty"`
+		CargoDetails        []CargoDetail `json:",omitempty" xml:"CargoDetails>item,omitempty"`
+		CargoDescription    string        `json:",omitempty" xml:",omitempty"`
 		RedeliveryCalculate RedeliveryCalculate
-		Amount              int
-		PackCount           int
-		Cost                int
-		SeatsAmount         int
+		Amount              int `json:",string,omitempty" xml:",omitempty"`
+		PackCount           int `json:",string,omitempty" xml:",omitempty"`
+		Cost                int `json:",string"`
+		SeatsAmount         int `json:",string"`
 	}
 
 	TimezoneInfo struct {
@@ -53,7 +53,7 @@ func (c *Client) GetDocumentPrice(req DocumentPriceRequest) (*Response[DocumentP
 
 type (
 	DocumentDeliveryDateRequest struct {
-		DateTime      string
+		DateTime      string `json:"omitempty" xml:"omitempty"`
 		ServiceType   string
 		CitySender    string
 		CityRecipient string
@@ -87,7 +87,7 @@ type (
 		EstimatedDeliveryDate string
 		IntDocNumber          string
 		TypeDocument          string
-		CostOnSite            int
+		CostOnSite            int `json:",string"`
 	}
 
 	Services struct {
@@ -103,54 +103,54 @@ type (
 	}
 
 	OptionSeat struct {
-		VolumetricVolume float64
-		VolumetricWidth  float64
-		VolumetricLength float64
-		VolumetricHeight float64
-		Weight           float64
+		VolumetricVolume float64 `json:",string"`
+		VolumetricWidth  float64 `json:",string"`
+		VolumetricLength float64 `json:",string"`
+		VolumetricHeight float64 `json:",string"`
+		Weight           float64 `json:",string"`
 		PackRef          string
 	}
 
 	InternetDocumentRequest struct {
-		SenderWarehouseIndex    string
-		RecipientWarehouseIndex string
-		PayerType               string
-		PaymentMethod           string
-		DateTime                string
-		CargoType               string
-		VolumeGeneral           float64
-		Weight                  float64
-		ServiceType             string
-		Description             string
-		Cost                    float64
-		CitySender              string
-		Sender                  string
-		SenderAddress           string
-		ContactSender           string
-		SendersPhone            string
-		CityRecipient           string
-		Recipient               string
-		RecipientAddress        string
-		ContactRecipient        string
-		RecipientsPhone         string
-		RedBoxBarcode           string
-		SeatsAmount             int
-		NewAddress              int
-		BackwardDeliveryData    []BackwardDeliveryData `xml:"BackwardDeliveryData>item"`
-		OptionsSeat             []OptionSeat           `xml:"OptionsSeat>item"`
-		RecipientAddressNote    string
-		RecipientCityName       string
-		RecipientArea           string
-		RecipientAreaRegions    string
-		RecipientAddressName    string
-		RecipientHouse          string
-		RecipientFlat           string
-		RecipientName           string
-		RecipientType           string
-		SettlementType          string
-		OwnershipForm           string
-		RecipientContactName    string
-		EDRPOU                  string
+		SenderWarehouseIndex    string                 `json:",omitempty" xml:",omitempty"`
+		RecipientWarehouseIndex string                 `json:",omitempty" xml:",omitempty"`
+		PayerType               string                 `json:",omitempty" xml:",omitempty"`
+		PaymentMethod           string                 `json:",omitempty" xml:",omitempty"`
+		DateTime                string                 `json:",omitempty" xml:",omitempty"`
+		CargoType               string                 `json:",omitempty" xml:",omitempty"`
+		VolumeGeneral           float64                `json:",string,omitempty" xml:",omitempty"`
+		Weight                  float64                `json:",string,omitempty" xml:",omitempty"`
+		ServiceType             string                 `json:",omitempty" xml:",omitempty"`
+		Description             string                 `json:",omitempty" xml:",omitempty"`
+		Cost                    float64                `json:",string,omitempty" xml:",omitempty"`
+		CitySender              string                 `json:",omitempty" xml:",omitempty"`
+		Sender                  string                 `json:",omitempty" xml:",omitempty"`
+		SenderAddress           string                 `json:",omitempty" xml:",omitempty"`
+		ContactSender           string                 `json:",omitempty" xml:",omitempty"`
+		SendersPhone            string                 `json:",omitempty" xml:",omitempty"`
+		CityRecipient           string                 `json:",omitempty" xml:",omitempty"`
+		Recipient               string                 `json:",omitempty" xml:",omitempty"`
+		RecipientAddress        string                 `json:",omitempty" xml:",omitempty"`
+		ContactRecipient        string                 `json:",omitempty" xml:",omitempty"`
+		RecipientsPhone         string                 `json:",omitempty" xml:",omitempty"`
+		RedBoxBarcode           string                 `json:",omitempty" xml:",omitempty"`
+		SeatsAmount             int                    `json:",string,omitempty" xml:",omitempty"`
+		NewAddress              IntBool                `json:",string,omitempty" xml:",omitempty"`
+		BackwardDeliveryData    []BackwardDeliveryData `json:",omitempty" xml:"BackwardDeliveryData>item,omitempty"`
+		OptionsSeat             []OptionSeat           `json:",omitempty" xml:"OptionsSeat>item,omitempty"`
+		RecipientAddressNote    string                 `json:",omitempty" xml:",omitempty"`
+		RecipientCityName       string                 `json:",omitempty" xml:",omitempty"`
+		RecipientArea           string                 `json:",omitempty" xml:",omitempty"`
+		RecipientAreaRegions    string                 `json:",omitempty" xml:",omitempty"`
+		RecipientAddressName    string                 `json:",omitempty" xml:",omitempty"`
+		RecipientHouse          string                 `json:",omitempty" xml:",omitempty"`
+		RecipientFlat           string                 `json:",omitempty" xml:",omitempty"`
+		RecipientName           string                 `json:",omitempty" xml:",omitempty"`
+		RecipientType           string                 `json:",omitempty" xml:",omitempty"`
+		SettlementType          string                 `json:",omitempty" xml:",omitempty"`
+		OwnershipForm           string                 `json:",omitempty" xml:",omitempty"`
+		RecipientContactName    string                 `json:",omitempty" xml:",omitempty"`
+		EDRPOU                  string                 `json:",omitempty" xml:",omitempty"`
 	}
 )
 
@@ -188,10 +188,10 @@ type (
 	DocumentListRequest struct {
 		DateTimeFrom    string
 		DateTimeTo      string
-		DateTime        string
-		RedeliveryMoney int
-		Page            int
-		GetFullList     int
+		DateTime        string `json:",omitempty" xml:",omitempty"`
+		RedeliveryMoney int    `json:",string,omitempty"`
+		Page            int    `json:",string,omitempty"`
+		GetFullList     int    `json:",string"`
 	}
 
 	Document struct {
@@ -200,22 +200,22 @@ type (
 		PreferredDeliveryDate   string
 		RecipientDateTime       string
 		EWDateCreated           string
-		Weight                  float64
+		Weight                  float64 `json:",string"`
 		IntDocNumber            string
-		Cost                    float64
+		Cost                    float64 `json:",string"`
 		CitySender              string
 		CityRecipient           string
 		SenderAddress           string
 		RecipientAddress        string
-		CostOnSite              float64
+		CostOnSite              float64 `json:",string"`
 		PayerType               string
 		PaymentMethod           string
-		AfterPaymentOnGoodsCost int `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost"`
-		PackingNumber           int
+		AfterPaymentOnGoodsCost int `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost,string"`
+		PackingNumber           int `json:",string"`
 		RejectionReason         string
 		StateName               string
-		StateId                 int
-		SeatsAmount             int
+		StateId                 int `json:",string"`
+		SeatsAmount             int `json:",string"`
 	}
 )
 
@@ -261,20 +261,20 @@ type (
 		Ref                     string
 		DateTime                string
 		PreferredDeliveryDate   string
-		Weight                  float64
+		Weight                  float64 `json:",string"`
 		IntDocNumber            string
-		Cost                    float64
+		Cost                    float64 `json:",string"`
 		CitySender              string
 		CityRecipient           string
 		State                   string
 		SenderAddress           string
 		RecipientAddress        string
-		CostOnSite              float64
+		CostOnSite              float64 `json:",string"`
 		PayerType               string
 		PaymentMethod           string
-		AfterPaymentOnGoodsCost float64 `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost"`
-		PackingNumber           int
-		SeatsAmount             int
+		AfterPaymentOnGoodsCost float64 `xml:"AfterpaymentOnGoodsCost" json:"AfterpaymentOnGoodsCost,string"`
+		PackingNumber           int     `json:",string"`
+		SeatsAmount             int     `json:",string"`
 	}
 )
 

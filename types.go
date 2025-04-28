@@ -33,4 +33,7 @@ type (
 		Ref    string
 		Number string
 	}
+
+	// 1 - true, 0 - false
+	IntBool = int
 )

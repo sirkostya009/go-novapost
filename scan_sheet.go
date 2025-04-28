@@ -66,8 +66,8 @@ type (
 		SenderAddress    string
 		SenderRef        string
 		Sender           string
-		Count            int
-		Printed          bool
+		Count            int     `json:",string"`
+		Printed          IntBool `json:",string"`
 	}
 )
 
@@ -101,11 +101,6 @@ type (
 		Number string
 		Error  string
 	}
-
-	RemoveDocumentsRequest struct {
-		DocumentRefs []string `xml:"DocumentRefs>item"`
-		Ref          string
-	}
 )
 
 // DeleteScanSheet Видалити (розформувати) реєстр відправлень
@@ -115,6 +110,11 @@ type (
 // необхідно сформувати відповідний запит.
 func (c *Client) DeleteScanSheet(ssr ScanSheetRefs) (*Response[ScanSheetRef], error) {
 	return RawRequest[ScanSheetRef](c, ScanSheetModel, "delete", ssr)
+}
+
+type RemoveDocumentsRequest struct {
+	DocumentRefs []string `xml:"DocumentRefs>item"`
+	Ref          string   `json:",omitempty" xml:",omitempty"`
 }
 
 // RemoveDocuments Видалити експрес-накладні з реєстру

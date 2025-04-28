@@ -1,6 +1,6 @@
 # go-novapost
 
-A simple library-wrapper for NovaPost API.
+A simple library-wrapper for Nova Poshta API.
 
 [![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost)
 [![Build & Test](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml/badge.svg)](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml)
@@ -50,9 +50,9 @@ defaulting to XML and a new `http.Client` instance.
 ```go
 c := np.NewClient(os.Getenv("NOVA_POST_API_KEY"),
 	np.WithHTTPClient(&http.Client{}),
-	np.WithMarshaler(xml.Marshal),
-	np.WithUnmarshaler(xml.Unmarshal),
-	np.WithURL(np.XMLUrl),
+	np.WithMarshaler(json.Marshal),
+	np.WithUnmarshaler(json.Unmarshal),
+	np.WithURL(np.JSONUrl),
 )
 ```
 
@@ -65,23 +65,18 @@ c.HTTPClient = http.DefaultClient
 c.Marshaler = fasterXmlMarshaler
 ```
 
-As you can see, this library uses XML for request marshalling, due to the nature of data returned by API. You aren't
-stripped of the ability to use JSON, though. Do note that the implementation must be a custom one, as most models have
-ints and floats whereas JSON response from API for those fields is a string.
-
-Alternatively, you are provided with an option for rawdogging requests, in case you wish to do something that is not
-supported by the library.
+You are also provided with an option to use custom request/response types as well as choose what API method to call.
 
 ```go
 type customProps struct {
-	Value string
+	Value int `json:"bla,string,omitempty"`
 }
 
 type responseData struct {
 	Foo string
 }
 
-res, err := np.RawRequest[responseData](c, "Model", "method", customProps{Value: "foo"}))
+res, err := np.RawRequest[responseData](c, "Model", "method", customProps{Value: 1000}))
 
 for _, m := range res.Data {
 	fmt.Println(m.Foo)
@@ -92,7 +87,7 @@ for _, m := range res.Data {
 - [x] Fix tests
 - [x] Fix XML
 - [x] Add constants for common strings, like "Sender" or "ThirdPerson"
-- [ ] Add custom marshaler/unmarshaler for JSON
+- ~~[ ] Add custom marshaler/unmarshaler for JSON~~
 
 ## Contributing
 
