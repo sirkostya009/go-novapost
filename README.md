@@ -87,7 +87,7 @@ for _, m := range res.Data {
 - [x] Fix tests
 - [x] Fix XML
 - [x] Add constants for common strings, like "Sender" or "ThirdPerson"
-- ~~[ ] Add custom marshaler/unmarshaler for JSON~~
+- [ ] ~~Add custom marshaler/unmarshaler for JSON~~
 
 ## Contributing
 
