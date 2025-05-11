@@ -103,12 +103,12 @@ type (
 	}
 
 	OptionSeat struct {
-		VolumetricVolume float64 `json:",string"`
-		VolumetricWidth  float64 `json:",string"`
-		VolumetricLength float64 `json:",string"`
-		VolumetricHeight float64 `json:",string"`
-		Weight           float64 `json:",string"`
-		PackRef          string
+		VolumetricVolume float64 `json:"volumetricVolume,string" xml:"volumetricVolume"`
+		VolumetricWidth  float64 `json:"volumetricWidth,string" xml:"volumetricWidth"`
+		VolumetricLength float64 `json:"volumetricLength,string" xml:"volumetricLength"`
+		VolumetricHeight float64 `json:"volumetricHeight,string" xml:"volumetricHeight"`
+		Weight           float64 `json:"weight,string" xml:"weight"`
+		PackRef          string  `json:"packRef" xml:"packRef"`
 	}
 
 	InternetDocumentRequest struct {
