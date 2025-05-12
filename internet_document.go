@@ -53,7 +53,7 @@ func (c *Client) GetDocumentPrice(req DocumentPriceRequest) (*Response[DocumentP
 
 type (
 	DocumentDeliveryDateRequest struct {
-		DateTime      string `json:"omitempty" xml:"omitempty"`
+		DateTime      string `json:",omitempty" xml:",omitempty"`
 		ServiceType   string
 		CitySender    string
 		CityRecipient string

@@ -139,7 +139,7 @@ func (c *Client) GetCounterpartyOptions(ref Ref) (*Response[CounterpartyOptions]
 
 type CounterpartyContactPersonRequest struct {
 	Ref  string
-	Page int `json:",string,omitempty" xml:"omitempty"`
+	Page int `json:",string,omitempty" xml:",omitempty"`
 }
 
 // GetCounterpartyContactPersons Завантажити список контактних осіб Контрагента
@@ -158,7 +158,7 @@ func (c *Client) GetCounterpartyContactPersons(req CounterpartyContactPersonRequ
 
 type CounterpartiesRequest struct {
 	CounterpartyProperty string
-	Page                 int`json:",string,omitempty" xml:"omitempty"`
+	Page                 int`json:",string,omitempty" xml:",omitempty"`
 }
 
 // GetCounterparties Завантажити список контрагентів відправників / одержувачів / третя особа
