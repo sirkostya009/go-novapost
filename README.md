@@ -5,11 +5,11 @@ A simple library-wrapper for Nova Poshta API.
 [![](https://godoc.org/github.com/sirkostya009/go-novapost?status.svg)](https://godoc.org/github.com/sirkostya009/go-novapost)
 [![Build & Test](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml/badge.svg)](https://github.com/sirkostya009/go-novapost/actions/workflows/go.yml)
 
-## Note
-
-This is a package for interacting with the awful Ukrainian Nova Poshta API available at [https://api.novaposhta.ua/v2.0](https://api.novaposhta.ua/v2.0).
-
-NOT the "international" one [https://api.novapost.com/developers/index.html](https://api.novapost.com/developers/index.html).
+> [!Note]
+>
+> This is a package for interacting with the awful Ukrainian Nova Poshta API available at [https://api.novaposhta.ua/v2.0](https://api.novaposhta.ua/v2.0).
+>
+> NOT the "international" one [https://api.novapost.com/developers/index.html](https://api.novapost.com/developers/index.html).
 
 ## Usage
 
