@@ -1,11 +1,16 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
-func TestInsertDocuments(t *testing.T) {
+func TestClient_InsertDocuments(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	documents, err := c.InsertDocuments(InsertDocumentsRequest{
 		Ref:          "00000000-0000-0000-0000-000000000000",
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
@@ -20,7 +25,11 @@ func TestInsertDocuments(t *testing.T) {
 	}
 }
 
-func TestGetScanSheet(t *testing.T) {
+func TestClient_GetScanSheet(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	scanSheet, err := c.GetScanSheet(ScanSheetRequest{
 		Ref:             "00000000-0000-0000-0000-000000000000",
 		CounterpartyRef: "00000000-0000-0000-0000-000000000000",
@@ -34,7 +43,11 @@ func TestGetScanSheet(t *testing.T) {
 	}
 }
 
-func TestGetScanSheetList(t *testing.T) {
+func TestClient_GetScanSheetList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	scanSheets, err := c.GetScanSheetList()
 	if err != nil {
 		t.Error(err)
@@ -45,7 +58,11 @@ func TestGetScanSheetList(t *testing.T) {
 	}
 }
 
-func TestDeleteScanSheet(t *testing.T) {
+func TestClient_DeleteScanSheet(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	scanSheet, err := c.DeleteScanSheet(ScanSheetRefs{
 		ScanSheetRefs: []string{"00000000-0000-0000-0000-000000000000"},
 	})
@@ -58,7 +75,11 @@ func TestDeleteScanSheet(t *testing.T) {
 	}
 }
 
-func TestRemoveDocuments(t *testing.T) {
+func TestClient_RemoveDocuments(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	documents, err := c.RemoveDocuments(RemoveDocumentsRequest{
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
 		Ref:          "00000000-0000-0000-0000-000000000000",

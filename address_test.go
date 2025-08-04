@@ -1,9 +1,10 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"os"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
 const (
@@ -11,9 +12,16 @@ const (
 	KyivCityRef       = "8d5a980d-391c-11dd-90d9-001a92567626"
 )
 
-var c = NewClient(os.Getenv("NOVA_POST_API_KEY"))
+// newTestClient creates a new client for testing
+func newTestClient() *Client {
+	return NewClient(os.Getenv("NOVA_POST_API_KEY"))
+}
 
-func TestSearchSettlements(t *testing.T) {
+func TestClient_SearchSettlements(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	settlements, err := c.SearchSettlements(SettlementRequest{
 		CityName: "Київ",
 		Limit:    150,
@@ -28,7 +36,11 @@ func TestSearchSettlements(t *testing.T) {
 	}
 }
 
-func TestSearchSettlementStreets(t *testing.T) {
+func TestClient_SearchSettlementStreets(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	streets, err := c.SearchSettlementStreets(SettlementStreetRequest{
 		StreetName:    "Хрещатик",
 		SettlementRef: KyivSettlementRef,
@@ -43,7 +55,11 @@ func TestSearchSettlementStreets(t *testing.T) {
 	}
 }
 
-func TestGetSettlements(t *testing.T) {
+func TestClient_GetSettlements(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	settlements, err := c.GetSettlements(GetSettlementsRequest{
 		FindByString: "Київ",
 		Limit:        150,
@@ -58,7 +74,11 @@ func TestGetSettlements(t *testing.T) {
 	}
 }
 
-func TestGetCities(t *testing.T) {
+func TestClient_GetCities(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	cities, err := c.GetCities(CityRequest{
 		FindByString: "Київ",
 		Limit:        150,
@@ -73,7 +93,11 @@ func TestGetCities(t *testing.T) {
 	}
 }
 
-func TestGetAreas(t *testing.T) {
+func TestClient_GetAreas(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	areas, err := c.GetAreas()
 	if err != nil {
 		t.Error(err)
@@ -84,7 +108,11 @@ func TestGetAreas(t *testing.T) {
 	}
 }
 
-func TestGetWarehouses(t *testing.T) {
+func TestClient_GetWarehouses(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	warehouses, err := c.GetWarehouses(WarehouseRequest{
 		CityName: "Київ",
 		Limit:    150,
@@ -99,7 +127,11 @@ func TestGetWarehouses(t *testing.T) {
 	}
 }
 
-func TestGetWarehouseTypes(t *testing.T) {
+func TestClient_GetWarehouseTypes(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	warehouseTypes, err := c.GetWarehouseTypes()
 	if err != nil {
 		t.Error(err)
@@ -110,7 +142,11 @@ func TestGetWarehouseTypes(t *testing.T) {
 	}
 }
 
-func TestGetStreet(t *testing.T) {
+func TestClient_GetStreet(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	street, err := c.GetStreet(StreetRequest{
 		CityRef: KyivCityRef,
 		Limit:   150,
@@ -125,7 +161,11 @@ func TestGetStreet(t *testing.T) {
 	}
 }
 
-func TestGetSettlementCountryRegion(t *testing.T) {
+func TestClient_GetSettlementCountryRegion(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	settlementCountryRegion, err := c.GetSettlementCountryRegion(AreaRef{
 		AreaRef: "7150813e-9b87-11de-822f-000c2965ae0e",
 	})
@@ -138,7 +178,11 @@ func TestGetSettlementCountryRegion(t *testing.T) {
 	}
 }
 
-func TestGetSettlementAreas(t *testing.T) {
+func TestClient_GetSettlementAreas(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	settlementAreas, err := c.GetSettlementAreas(Ref{
 		Ref: KyivSettlementRef,
 	})

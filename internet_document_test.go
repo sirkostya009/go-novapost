@@ -1,11 +1,16 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
-func TestGetDocumentPrice(t *testing.T) {
+func TestClient_GetDocumentPrice(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	prices, err := c.GetDocumentPrice(DocumentPriceRequest{
 		CitySender:    "",
 		CityRecipient: "",
@@ -35,9 +40,13 @@ func TestGetDocumentPrice(t *testing.T) {
 	}
 }
 
-func TestGetDocumentDeliveryDate(t *testing.T) {
+func TestClient_GetDocumentDeliveryDate(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	dates, err := c.GetDocumentDeliveryDate(DocumentDeliveryDateRequest{
-		ServiceType:   "WarehouseWarehouse",
+		ServiceType:   WarehouseWarehouse,
 		CitySender:    KyivCityRef,
 		CityRecipient: KyivCityRef,
 	})
@@ -50,7 +59,11 @@ func TestGetDocumentDeliveryDate(t *testing.T) {
 	}
 }
 
-func TestGetDocumentList(t *testing.T) {
+func TestClient_GetDocumentList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	documents, err := c.GetDocumentList(DocumentListRequest{
 		DateTime: "01.01.2026",
 	})
@@ -63,7 +76,11 @@ func TestGetDocumentList(t *testing.T) {
 	}
 }
 
-func TestGenerateReport(t *testing.T) {
+func TestClient_GenerateReport(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	report, err := c.GenerateReport(ReportRequest{
 		DocumentRefs: []string{"00000000-0000-0000-0000-000000000000"},
 		DateTime:     "01.01.2026",

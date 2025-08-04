@@ -1,11 +1,16 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
-func TestGetTimeIntervals(t *testing.T) {
+func TestClient_GetTimeIntervals(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	intervals, err := c.GetTimeIntervals(TimeIntervalRequest{
 		DateTime:         "01.01.2026",
 		RecipientCityRef: KyivCityRef,
@@ -19,7 +24,11 @@ func TestGetTimeIntervals(t *testing.T) {
 	}
 }
 
-func TestGetCargoTypes(t *testing.T) {
+func TestClient_GetCargoTypes(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	cargoTypes, err := c.GetCargoTypes()
 	if err != nil {
 		t.Error(err)
@@ -30,7 +39,11 @@ func TestGetCargoTypes(t *testing.T) {
 	}
 }
 
-func TestGetBackwardDeliveryCargoTypes(t *testing.T) {
+func TestClient_GetBackwardDeliveryCargoTypes(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	cargoTypes, err := c.GetBackwardDeliveryCargoTypes()
 	if err != nil {
 		t.Error(err)
@@ -41,7 +54,11 @@ func TestGetBackwardDeliveryCargoTypes(t *testing.T) {
 	}
 }
 
-func TestGetPalletsList(t *testing.T) {
+func TestClient_GetPalletsList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	pallets, err := c.GetPalletsList()
 	if err != nil {
 		t.Error(err)
@@ -52,7 +69,11 @@ func TestGetPalletsList(t *testing.T) {
 	}
 }
 
-func TestGetTypesOfPayersForRedelivery(t *testing.T) {
+func TestClient_GetTypesOfPayersForRedelivery(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	payers, err := c.GetTypesOfPayersForRedelivery()
 	if err != nil {
 		t.Error(err)
@@ -63,7 +84,11 @@ func TestGetTypesOfPayersForRedelivery(t *testing.T) {
 	}
 }
 
-func TestGetPackList(t *testing.T) {
+func TestClient_GetPackList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	packs, err := c.GetPackList(PackRequest{
 		Length:           10,
 		Width:            2,
@@ -79,7 +104,11 @@ func TestGetPackList(t *testing.T) {
 	}
 }
 
-func TestGetTiresWheelsList(t *testing.T) {
+func TestClient_GetTiresWheelsList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	tiresWheels, err := c.GetTiresWheelsList()
 	if err != nil {
 		t.Error(err)
@@ -90,7 +119,11 @@ func TestGetTiresWheelsList(t *testing.T) {
 	}
 }
 
-func TestGetCargoDescriptionList(t *testing.T) {
+func TestClient_GetCargoDescriptionList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	cargoDescriptions, err := c.GetCargoDescriptionList(CargoDescriptionRequest{
 		FindByString: "Вантаж",
 		Page:         1,
@@ -104,7 +137,11 @@ func TestGetCargoDescriptionList(t *testing.T) {
 	}
 }
 
-func TestGetMessageCodeText(t *testing.T) {
+func TestClient_GetMessageCodeText(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	message, err := c.GetMessageCodeText()
 	if err != nil {
 		t.Error(err)
@@ -115,7 +152,11 @@ func TestGetMessageCodeText(t *testing.T) {
 	}
 }
 
-func TestGetServiceTypes(t *testing.T) {
+func TestClient_GetServiceTypes(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	serviceTypes, err := c.GetServiceTypes()
 	if err != nil {
 		t.Error(err)
@@ -126,7 +167,11 @@ func TestGetServiceTypes(t *testing.T) {
 	}
 }
 
-func TestGetOwnershipFormsList(t *testing.T) {
+func TestClient_GetOwnershipFormsList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	ownershipForms, err := c.GetOwnershipFormsList()
 	if err != nil {
 		t.Error(err)

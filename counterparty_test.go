@@ -1,13 +1,18 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
 const CounterpartyRef = "e718a680-4b3a-11e4-ab6d-005056801329"
 
-func TestGetCounterpartyAddresses(t *testing.T) {
+func TestClient_GetCounterpartyAddresses(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	addresses, err := c.GetCounterpartyAddresses(CounterpartyAddressRequest{
 		Ref:                  CounterpartyRef,
 		CounterpartyProperty: "Sender",
@@ -21,7 +26,11 @@ func TestGetCounterpartyAddresses(t *testing.T) {
 	}
 }
 
-func TestGetCounterpartyOptions(t *testing.T) {
+func TestClient_GetCounterpartyOptions(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	options, err := c.GetCounterpartyOptions(Ref{
 		Ref: CounterpartyRef,
 	})
@@ -34,7 +43,11 @@ func TestGetCounterpartyOptions(t *testing.T) {
 	}
 }
 
-func TestGetCounterpartyContactPersons(t *testing.T) {
+func TestClient_GetCounterpartyContactPersons(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	contactPersons, err := c.GetCounterpartyContactPersons(CounterpartyContactPersonRequest{
 		Ref:  CounterpartyRef,
 		Page: 1,
@@ -48,7 +61,11 @@ func TestGetCounterpartyContactPersons(t *testing.T) {
 	}
 }
 
-func TestGetCounterparties(t *testing.T) {
+func TestClient_GetCounterparties(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	counterparties, err := c.GetCounterparties(CounterpartiesRequest{
 		CounterpartyProperty: "Sender",
 		Page:                 1,

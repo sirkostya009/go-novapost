@@ -1,11 +1,16 @@
 package novapost_test
 
 import (
-	. "github.com/sirkostya009/go-novapost"
 	"testing"
+
+	. "github.com/sirkostya009/go-novapost"
 )
 
-func TestCheckPossibilityCreateReturn(t *testing.T) {
+func TestClient_CheckPossibilityCreateReturn(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	possibility, err := c.CheckPossibilityCreateReturn(Number{
 		Number: "00000000000000",
 	})
@@ -18,7 +23,11 @@ func TestCheckPossibilityCreateReturn(t *testing.T) {
 	}
 }
 
-func TestGetReturnReasons(t *testing.T) {
+func TestClient_GetReturnReasons(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	reasons, err := c.GetReturnReasons()
 	if err != nil {
 		t.Error(err)
@@ -29,7 +38,11 @@ func TestGetReturnReasons(t *testing.T) {
 	}
 }
 
-func TestGetReturnReasonsSubtypes(t *testing.T) {
+func TestClient_GetReturnReasonsSubtypes(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	reasons, err := c.GetReturnReasonSubtypes(ReasonRef{
 		ReasonRef: "00000000-0000-0000-0000-000000000000",
 	})
@@ -42,7 +55,11 @@ func TestGetReturnReasonsSubtypes(t *testing.T) {
 	}
 }
 
-func TestGetReturnOrdersList(t *testing.T) {
+func TestClient_GetReturnOrdersList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	returnOrders, err := c.GetReturnOrdersList(ReturnOrderRequest{
 		Number:    "102-00003168",
 		Ref:       "00000000-0000-0000-0000-000000000000",
@@ -60,7 +77,11 @@ func TestGetReturnOrdersList(t *testing.T) {
 	}
 }
 
-func TestDeleteAdditionalService(t *testing.T) {
+func TestClient_DeleteAdditionalService(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	additionalService, err := c.DeleteReturnOrder(Ref{
 		Ref: "00000000-0000-0000-0000-000000000000",
 	})
@@ -73,7 +94,11 @@ func TestDeleteAdditionalService(t *testing.T) {
 	}
 }
 
-func TestCheckPossibilityChangeEW(t *testing.T) {
+func TestClient_CheckPossibilityChangeEW(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	possibility, err := c.CheckPossibilityChangeEW(IntDocNumber{
 		IntDocNumber: "00000000000000",
 	})
@@ -86,7 +111,11 @@ func TestCheckPossibilityChangeEW(t *testing.T) {
 	}
 }
 
-func TestGetChangeEWOrdersList(t *testing.T) {
+func TestClient_GetChangeEWOrdersList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	orders, err := c.GetChangeEWOrdersList(ChangeEWRequest{
 		Number:    "00000000000000",
 		Ref:       "00000000-0000-0000-0000-000000000000",
@@ -104,7 +133,11 @@ func TestGetChangeEWOrdersList(t *testing.T) {
 	}
 }
 
-func TestCheckPossibilityForRedirecting(t *testing.T) {
+func TestClient_CheckPossibilityForRedirecting(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	possibility, err := c.CheckPossibilityForRedirecting(Number{
 		Number: "00000000000000",
 	})
@@ -117,7 +150,11 @@ func TestCheckPossibilityForRedirecting(t *testing.T) {
 	}
 }
 
-func TestGetRedirectionOrdersList(t *testing.T) {
+func TestClient_GetRedirectionOrdersList(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+	c := newTestClient()
 	orders, err := c.GetRedirectionOrdersList(RedirectionRequest{
 		Number:    "00000000000000",
 		Ref:       "00000000-0000-0000-0000-000000000000",
