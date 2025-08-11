@@ -9,13 +9,12 @@ import (
 	"github.com/sirkostya009/go-novapost"
 )
 
-type testData struct{ String string }
-
 func TestRawRequest(t *testing.T) {
 	const method = "method"
 	const model = "model"
 	const property = "blah"
 	type testT = int
+	type testData struct{ String string }
 
 	serv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
@@ -36,7 +35,12 @@ func TestRawRequest(t *testing.T) {
 	}))
 	defer serv.Close()
 
-	c := decoratedClient(serv.URL)
+	c := novapost.NewClient("",
+		novapost.WithHTTPClient(serv.Client()),
+		novapost.WithMarshaler(json.Marshal),
+		novapost.WithUnmarshaler(json.Unmarshal),
+		novapost.WithURL(serv.URL),
+	)
 
 	res, err := novapost.RawRequest[testT](c, model, method, testData{String: property})
 
@@ -45,14 +49,6 @@ func TestRawRequest(t *testing.T) {
 	if len(res.Data) != 1 || res.Data[0] != 1 {
 		t.Error("unexpected return data")
 	}
-}
-
-func decoratedClient(url string) *novapost.Client {
-	c := newTestClient()
-	c.Url = url
-	c.Unmarshaler = json.Unmarshal
-	c.Marshaler = json.Marshal
-	return c
 }
 
 func assertNoError(t *testing.T, err error) {
